@@ -1,0 +1,118 @@
+{% load static %}
+
+{% block body %}
+
+{% include 'headtag.html' %}
+
+{% include 'recruiter_navigation.html' %}
+
+<form action="" method="post" class="container mt-5" enctype="multipart/form-data" name="signup" >
+    {% csrf_token %}
+
+    
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label >Job Title</label>
+            <input type="text" class="form-control" name="jobtitle" placeholder="Enter job title" required>
+        </div>
+        </div>
+
+
+
+
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label >start date</label>
+            <input type="date" class="form-control" name="startdate"  required>
+        </div>
+        <div class="form-group col-md-6">
+            <label >end date</label>
+            <input type="date" class="form-control" name="enddate"  required>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label >salary(per Month)</label>
+            <input type="text" class="form-control" name="salary"  required>
+        </div>
+        <div class="form-group col-md-6">
+            <label >company logo</label>
+            <input type="file" class="form-control" name="logo"  required>
+        </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label >Experience(In Years)</label>
+                <input type="text" class="form-control" name="experience"  required>
+            </div>
+            <div class="form-group col-md-6">
+                <label >Location</label>
+                <input type="text" class="form-control" name="location"  required>
+            </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label >skills</label>
+                    <input type="text" class="form-control" name="skills" placeholder="skills required" required>
+                </div>
+            </div>
+
+            <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label >Description</label>
+                        <textarea type="text" class="form-control" name="description"  required></textarea>
+                    </div>
+                    </div>
+                
+            
+            <div class="form-row">
+                    <div class="form-group col-md-6" style="margin-bottom:10px;">
+                            <label >vacancy</label>
+                            <input type="number" class="form-control" name="vacancy" placeholder="number of vacancies available" required>
+                        </div>
+            </div>
+
+            <div class="form-row" style="margin-bottom:10px;">
+                <div class="form-group col-md-6" style="margin-bottom:10px;">
+            <select name="nature" class="form-control">
+                <option value="fulltime">Full Time</option>
+                <option value="parttime">Part Time</option>
+                <option value="featured">Featured</option>
+            </select>
+        </div>
+          </div>
+
+          <div class="form-row" style="margin-bottom:10px;">
+            <div class="form-group col-md-6" style="margin-bottom:10px;">
+        <select name="category" class="form-control" required>
+            <option >Category</option>
+            <option value="Marketing">Marketing</option>
+            <option value="Customer Service">Customer Service</option>
+            <option value="Human Resource">Human Resource</option>
+            <option value="Project Management">Project Management</option>
+            <option value="Business Development">Business Development</option>
+            <option value="Sales & Communication">Sales & Communication</option>
+            <option value="Teaching & Education">Teaching & Education</option>
+            <option value="Design & Creative">Design & Creative</option>
+        </select>
+    </div>
+      </div>
+            
+            
+            
+            <input type="submit" class="btn btn-primary" style="width: 200px;" value="submit" style="margin-bottom:10px">
+    </form>
+    {% include 'footer.html'%}
+    {%ifequal error "no" %}
+    <script>
+        alert("job details added succesfully");
+        window.location=('{% url 'job_list' %}');
+    </script>
+    {% endifequal %}
+    {% ifequal error "yes" %}
+    <script>
+        alert("Something went wrong,try again");
+    </script>
+    {% endifequal %}
+{% endblock %}

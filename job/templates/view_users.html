@@ -1,0 +1,97 @@
+{% load static %}
+{% block body %}
+<!DOCTYPE html>
+<html lang="en">
+
+{% include 'headtag.html' %}
+
+<body>
+    <div class="container-xxl bg-white p-0">
+        <!-- Spinner Start -->
+        <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+            <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </div>
+        <!-- Spinner End -->
+
+        <!-- Navbar Start -->
+        {% include 'user_navigation.html' %}
+        <!-- Navbar End -->
+
+        <!-- Header End -->
+        <div class="container-xxl py-5 bg-dark page-header mb-5">
+            <div class="container my-5 pt-5 pb-4">
+                <h1 class="display-3 text-white mb-3 animated slideInDown">Jobseekers</h1>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb text-uppercase">
+                        <li class="breadcrumb-item "><a href="{% url 'recruiter_home' %}">Home</a></li>
+                        <li class="breadcrumb-item "><a href="">Pages</a></li>
+                        <li class="breadcrumb-item text-white active " aria-current="page">Jobseekers</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+        <!-- Header End -->
+
+         
+        
+        <!-- users Start -->
+        <div class="container-xxl py-5">
+            <div class="container">
+                <h1 class="text-center mb-5 wow fadeInUp" data-wow-delay="0.1s">Jobseekers</h1>
+                <div class="tab-class text-center wow fadeInUp" data-wow-delay="0.3s">
+                    
+                    <div class="tab-content">
+                        
+                        <div id="tab-1" class="tab-pane fade show p-0 active">
+                            {% for i in data %}
+                            
+                            <div class="job-item p-4 mb-4">
+                                <div class="row g-4">
+                                    <div class="col-sm-12 col-md-8 d-flex align-items-center">
+                                        <img class="flex-shrink-0 img-fluid border rounded" src="{{i.image.url}}" alt="" width="80px" height="80px" >
+                                        <div class="text-start ps-4">
+                                            <h5 class="mb-3">{{i.user.first_name}} {{i.user.last_name}}</h5>
+                                            <span class="text-truncate me-3"><i class="fa fa-envelope text-primary me-2"></i>{{i.user.username}}</span>
+                                            <span class="text-truncate me-3"><i class="far fa-clock text-primary me-2"></i>{{i.gender}}</span>
+                                            <span class="text-truncate me-0"><i class="fa fa-phone-alt text-primary me-2"></i>{{i.mobile}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12 col-md-4 d-flex flex-column align-items-start align-items-md-end justify-content-center">
+                                        <div class="d-flex mb-3">
+                                            <a class="btn btn-primary" href="{% url 'job_detail' i.id %}" style="margin-right: 10px;">change status</a>
+                                            <a class="btn btn-danger" href="{% url 'delete_user' i.user.id %}" onclick="return confirm('Are you sure,you want to delete')">delete</a>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                            
+                            
+                            
+                            
+                        </div>
+                        
+                        
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Jobs End -->
+
+        <!-- Footer Start -->
+        {% include 'footer.html' %}
+        <!-- Footer End -->
+
+        <!-- Back to Top -->
+        <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+    </div>
+
+    <!-- JavaScript Libraries -->
+    {% include 'javascriptlibraries.html' %}
+</body>
+</html>
+{% endblock %}

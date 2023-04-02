@@ -1,0 +1,59 @@
+{% block body %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+{% include 'headtag.html' %}
+
+    
+
+<body>
+    
+
+<div class="container-xxl bg-white p-0">
+    
+
+    {% include 'admin_navigation.html' %}
+
+<!-- Header End -->
+<div class="container-xxl py-5 bg-dark page-header mb-5">
+    <div class="container my-5 pt-5 pb-4">
+        <h1 class="display-3 text-white mb-3 animated slideInDown">Home </h1>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb text-uppercase">
+                <li class="breadcrumb-item"><a href="{% url 'user_home' %}">Companies</a></li>
+                <li class="breadcrumb-item"><a href="{% url 'user_latestjobs' %}">Jobseekers</a></li>
+                <li class="breadcrumb-item text-white active" aria-current="page">Home</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+<!-- Header End -->
+<!-- view start -->
+<div class="container-xxl py-5">
+    <div class="container">
+        <h1 class="text-center mb-5 wow fadeInUp" data-wow-delay="0.1s">See Users</h1>
+        <div class="row g-4">
+            <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.1s">
+                <a class="cat-item rounded p-4" href="{% url 'recruiter_all' %}">
+                    <i class="fa fa-3x fa-user-tie text-primary mb-4"></i>
+                    <h6 class="mb-3">Companies</h6>
+                    <p class="mb-0">{{rcount}} companies</p>
+                </a>
+            </div>
+
+            <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.3s">
+                <a class="cat-item rounded p-4" href="{% url 'view_users' %}">
+                    <i class="fa fa-3x fa-user-tie text-primary mb-4"></i>
+                    <h6 class="mb-3">Job Seekers</h6>
+                    <p class="mb-0">{{scount}} jobseekers</p>
+                </a>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- view End -->
+</div>
+</body>
+</html>
+{% endblock %}
