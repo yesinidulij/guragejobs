@@ -30,8 +30,17 @@
     <!-- Template Stylesheet -->
     <link href="{% static 'css/style.css' %}" rel="stylesheet">
 </head>
-{% include 'navigationbar.html' %}
+
 <body>
+    <div class="container-xxl bg-white p-0">
+    <!-- Spinner Start -->
+    <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+    <!-- Spinner End -->
+    {% include 'navigationbar.html' %}
      <!-- Contact Start -->
      <div class="container-xxl py-5">
         <div class="container">
@@ -65,9 +74,19 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-12 wow fadeInUp" data-wow-delay="0.1s">
+                <div class="col-6 wow fadeInUp" data-wow-delay="0.1s">
 
                     <iframe class="position-relative rounded w-100 h-100" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1011129.3195539258!2d37.46889811771717!3d8.129566337943151!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x17b31ceb1d0a1395%3A0xce73abaa132ca4e5!2sGurage%2C%20Ethiopia!5e0!3m2!1sen!2sde!4v1679492857484!5m2!1sen!2sde" frameborder="0" style="min-height: 400px; border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
                 </div>
+                
+                  <!-- Back to Top -->
+        <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+            </div>
+        </div>
+ <!-- Footer Start -->
+ {% include 'footer.html' %}
+ <!-- Footer End -->
+    <!-- JavaScript Libraries -->
+    {% include 'javascriptlibraries.html' %}
 </body>
 </html>

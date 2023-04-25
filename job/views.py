@@ -7,7 +7,9 @@ from django.contrib import messages
 from django.views.generic import ListView,DetailView
 # Create your views here.
 def index(request):
-    return render(request, "index.html")
+    job=Job.objects.all().order_by('-start_date')
+    d={'job':job[:2]}
+    return render(request, "index.html",d)
 
 def admin_login(request):
     error=""
@@ -43,6 +45,46 @@ def Logout(request):
 
 def contact(request):
     return render(request,"contact.html")
+
+def latest_jobs(request):
+    job=Job.objects.all().order_by('-start_date')
+    category1=Job.objects.filter(category="Marketing")
+    category2=Job.objects.filter(category="Customer Service")
+    category3=Job.objects.filter(category="Human Resource")
+    category4=Job.objects.filter(category="Project Management")
+    category5=Job.objects.filter(category="Business Development")
+    category6=Job.objects.filter(category="Sales & Communication")
+    category7=Job.objects.filter(category="Teaching & Education")
+    category8=Job.objects.filter(category="Design & Creative")
+    len1=0
+    len2=0
+    len3=0
+    len4=0
+    len5=0
+    len6=0
+    len7=0
+    len8=0
+    for i in category1:
+         len1+=i.vacancy
+    for i in category2:
+         len2+=i.vacancy
+    for i in category3:
+         len3+=i.vacancy
+    for i in category4:
+         len4+=i.vacancy
+    for i in category5:
+         len5+=i.vacancy
+    for i in category6:
+         len6+=i.vacancy
+    for i in category7:
+         len7+=i.vacancy
+    for i in category8:
+         len8+=i.vacancy
+    
+    recruiter=Recruiter.objects.all()
+   
+    d={'job':job,'len1':len1,'len2':len2,'len3':len3,'len4':len4,'len5':len5,'len6':len6,'len7':len7,'len8':len8,'recruiter':recruiter}
+    return render(request,"latest_jobs.html",d)
 
 def user_signup(request):
     error=""
