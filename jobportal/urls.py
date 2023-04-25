@@ -54,6 +54,9 @@ urlpatterns = [
     path('view_users',view_users,name="view_users"),
     path('delete_user/<int:pid>',delete_user,name="delete_user"),
     path('latest_jobs',latest_jobs,name="latest_jobs"),
+    path('services',services,name="services"),
+    path('change_status/<int:pid>',change_status,name="change_status"),
+    path('applied_candidatelist',applied_candidatelist,name="applied_candidatelist"),
 ] + static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
 
 #handler404='job.views.error_404_view'

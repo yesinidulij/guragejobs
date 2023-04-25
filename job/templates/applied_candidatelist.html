@@ -1,4 +1,5 @@
 {% load static %}
+{% block body %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -21,26 +22,28 @@
         <!-- Header End -->
         <div class="container-xxl py-5 bg-dark page-header mb-5">
             <div class="container my-5 pt-5 pb-4">
-                <h1 class="display-3 text-white mb-3 animated slideInDown">Job List</h1>
+                <h1 class="display-3 text-white mb-3 animated slideInDown">Jobseekers</h1>
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb text-uppercase">
                         <li class="breadcrumb-item "><a href="{% url 'recruiter_home' %}">Home</a></li>
                         <li class="breadcrumb-item "><a href="">Pages</a></li>
-                        <li class="breadcrumb-item text-white active " aria-current="page">Job List</li>
+                        <li class="breadcrumb-item text-white active " aria-current="page">Jobseekers</li>
                     </ol>
                 </nav>
             </div>
         </div>
         <!-- Header End -->
 
-        <!-- Jobs Start -->
+         
+        
+        <!-- users Start -->
         <div class="container-xxl py-5">
             <div class="container">
-                <h1 class="text-center mb-5 wow fadeInUp" data-wow-delay="0.1s">Job Listing</h1>
+                <h1 class="text-center mb-5 wow fadeInUp" data-wow-delay="0.1s">Applied Jobseekers</h1>
                 <div class="tab-class text-center wow fadeInUp" data-wow-delay="0.3s">
                     
                     <div class="tab-content">
-                         <!-- Search Start -->
+                        <!-- Search Start -->
         <div class="container-fluid bg-primary mb-5 wow fadeIn" data-wow-delay="0.1s" style="padding: 35px;" >
             <div class="container">
                 <div class="row g-2">
@@ -58,30 +61,32 @@
             </div>
         </div>
         <!-- Search End -->
-                        {% for i in job %}
                         <div id="myDIV" class="tab-pane fade show p-0 active">
+                            
+                            {% for i in data %}
                             
                             <div class="job-item p-4 mb-4" id="mydiv1">
                                 <div class="row g-4">
                                     <div class="col-sm-12 col-md-8 d-flex align-items-center">
-                                        <img class="flex-shrink-0 img-fluid border rounded" src="{% static 'img/com-logo-1.jpg' %}" alt="" style="width: 80px; height: 80px;">
+                                        <img class="flex-shrink-0 img-fluid border rounded" src="{{i.student.image.url}}" alt="" width="80px" height="80px" >
                                         <div class="text-start ps-4">
-                                            <h5 class="mb-3">{{i.title}}</h5>
-                                            <span class="text-truncate me-3"><i class="fa fa-map-marker-alt text-primary me-2"></i>{{i.location}}</span>
-                                            <span class="text-truncate me-3"><i class="far fa-clock text-primary me-2"></i>Featured</span>
-                                            <span class="text-truncate me-0"><i class="far fa-money-bill-alt text-primary me-2"></i>{{i.salary}}</span>
+                                            <h5 class="mb-3">{{i.job.title}}</h5>
+                                            <span class="text-truncate me-3"><i class="fa fa-user-tie text-primary me-2"></i>{{i.student.user.first_name}} {{i.student.user.last_name}}</span>
+                                            <span class="text-truncate me-3"><i class="fa fa-envelope text-primary me-2"></i>{{i.student.user.username}}</span>
+                                            <span class="text-truncate me-3"><i class="far fa-clock text-primary me-2"></i>{{i.applydate}}</span>
+                                            <span class="text-truncate me-0"><i class="fa fa-phone-alt text-primary me-2"></i>{{i.student.mobile}}</span>
                                         </div>
                                     </div>
                                     <div class="col-sm-12 col-md-4 d-flex flex-column align-items-start align-items-md-end justify-content-center">
                                         <div class="d-flex mb-3">
-                                            <a class="btn btn-primary" href="" style="margin-right: 10px;">edit</a>
-                                            <a class="btn btn-danger" href="{% url 'delete_job' i.id %}" onclick="return confirm('Are you sure,you want to delete')">delete</a>
+                                            <a class="btn btn-primary" href="{{i.resume.url}}" style="margin-right: 10px;">Download Resume</a>
+                                           
                                         </div>
-                                        <small class="text-truncate"><i class="far fa-calendar-alt text-primary me-2"></i>Date Line: {{i.startdate}}-{{i.enddate}}</small>
+                                        
                                     </div>
                                 </div>
                             </div>
-                            
+                            {% endfor %}
                             
                             
                             
@@ -89,8 +94,7 @@
                         </div>
                         
                         
-                        
-                        {% endfor %}
+
                     </div>
                 </div>
             </div>
@@ -109,3 +113,4 @@
     {% include 'javascriptlibraries.html' %}
 </body>
 </html>
+{% endblock %}

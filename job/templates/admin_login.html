@@ -4,7 +4,7 @@
 <html lang="en">
     <head>
         <meta charset="utf-8">
-        <title>Guragejobs|Admin Login</title>
+        <title>Guragejobs|admin Login</title>
         <meta content="width=device-width, initial-scale=1.0" name="viewport">
         <meta content="" name="keywords">
         <meta content="" name="description">
@@ -37,38 +37,39 @@
 {% include 'navigationbar.html' %}
         <!-- Header End -->
         <div class="container-xxl py-5 bg-dark page-header mb-5">
-            <div class="container my-5 pt-5 pb-4">
-                <h1 class="display-3 text-white mb-3 animated slideInDown">Admin Login</h1>
-                <nav aria-label="breadcrumb">
-                    <ol class="breadcrumb text-uppercase">
-                        <li class="breadcrumb-item "><a href="{% url 'recruiter_home' %}">Home</a></li>
-                        <li class="breadcrumb-item "><a href="">Pages</a></li>
-                        <li class="breadcrumb-item text-white active " aria-current="page">Login</li>
-                    </ol>
-                </nav>
+            <div class="" style="margin-left:300px;background:white;width:500px;height:300px;text-align:center">
+                <h4 class="mb-4" style="margin-left:50px">Login</h4>
+                <form action="" method="post" style="margin:20px">
+                    {% csrf_token %}
+                    <div class="row g-3">
+                        <div class="col-12 ">
+                            <input type="text" class="form-control" placeholder="Your username" name="uname">
+                        </div>
+                        <div class="col-12 ">
+                            <input type="password" class="form-control" placeholder="Your password" name="pwd">
+                        </div>
+                        
+                            <input class="btn btn-primary " style="width:200px" type="submit" value="submit">
+                            
+                        </div>
+                    
+                </form>
             </div>
         </div>
         <!-- Header End -->
 
-<div class="" style="margin:50px">
-    <h4 class="mb-4">Login</h4>
-    <form action="" method="post">
-        {% csrf_token %}
-        <div class="row g-3">
-            <div class="col-12 ">
-                <input type="text" class="form-control" placeholder="Your username" name="uname">
-            </div>
-            <div class="col-12 ">
-                <input type="password" class="form-control" placeholder="Your password" name="pwd">
-            </div>
-            
-                <input class="btn btn-primary " style="width:200px" type="submit" value="submit">
-                <a href="{% url 'user_signup' %}" >Don't have an account? please register</a>
-            </div>
-        
-    </form>
-</div>
-        </div>
+
+         <!-- Footer Start -->
+         {% include 'footer.html' %}
+         <!-- Footer End -->
+ 
+ 
+         <!-- Back to Top -->
+         <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+     </div>
+ 
+     <!-- JavaScript Libraries -->
+     {% include 'javascriptlibraries.html' %}
 </body>
 </html>
 {% ifequal error "no" %}

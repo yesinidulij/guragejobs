@@ -4,7 +4,7 @@
 <html lang="en">
     <head>
         <meta charset="utf-8">
-        <title>Guragejobs|Recruiter Login</title>
+        <title>Guragejobs|change status</title>
         <meta content="width=device-width, initial-scale=1.0" name="viewport">
         <meta content="" name="keywords">
         <meta content="" name="description">
@@ -34,23 +34,27 @@
 <body>
         <div class="container-xxl bg-white p-0">
             
-{% include 'navigationbar.html' %}
+{% include 'admin_navigation.html' %}
         <!-- Header End -->
         <div class="container-xxl py-5 bg-dark page-header mb-5">
             <div class="" style="margin-left:300px;background:white;width:500px;height:300px;text-align:center">
-                <h4 class="mb-4" style="margin-left:50px">Login</h4>
+                <h4 class="mb-4" style="margin-left:50px">change status</h4>
                 <form action="" method="post" style="margin:20px">
                     {% csrf_token %}
                     <div class="row g-3">
                         <div class="col-12 ">
-                            <input type="text" class="form-control" placeholder="Your username" name="uname">
+                            <input type="text" class="form-control"  name="uname" value="{{recruiter.user.first_name}} {{recruiter.user.last_name}}" readonly>
                         </div>
                         <div class="col-12 ">
-                            <input type="password" class="form-control" placeholder="Your password" name="pwd">
+                            
+                              <select name="status" class="form-control" required>
+                                <option value="Accept">Accept</option>
+                                <option value="Reject">Reject</option>
+                              </select>
                         </div>
                         
                             <input class="btn btn-primary " style="width:200px" type="submit" value="submit">
-                            <a href="{% url 'recruiter_signup' %}" >Don't have an account? please register</a>
+                            
                         </div>
                     
                 </form>
@@ -74,25 +78,13 @@
 </html>
 {% ifequal error "no" %}
 <script>
-    alert("login successful");
-    window.location=('{% url 'recruiter_home' %}');
+    alert("status changed successfully");
+    window.location=('{% url 'recruiter_all' %}');
 </script>
 {% endifequal %}
 {% ifequal error "yes" %}
 <script>
-    alert("invalid login credentials,try again");
-</script>
-{% endifequal %}
-
-{% ifequal error "not" %}
-<script>
-    alert("status is rejected");
-</script>
-{% endifequal %}
-
-{% ifequal error "pending" %}
-<script>
-    alert("status is pending");
+    alert("try again");
 </script>
 {% endifequal %}
 

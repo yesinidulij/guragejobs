@@ -46,6 +46,9 @@ def Logout(request):
 def contact(request):
     return render(request,"contact.html")
 
+def services(request):
+    return render(request,"services.html")
+
 def latest_jobs(request):
     job=Job.objects.all().order_by('-start_date')
     category1=Job.objects.filter(category="Marketing")
@@ -89,6 +92,7 @@ def latest_jobs(request):
 def user_signup(request):
     error=""
     if request.method=='POST':
+     try:
         f=request.POST['fname']
         l=request.POST['lname']
         i=request.FILES['image']
@@ -96,14 +100,29 @@ def user_signup(request):
         e=request.POST['email']
         con=request.POST['contact']
         gen=request.POST['gender']
-        try:
-            user=User.objects.create_user(first_name=f,last_name=l,username=e,password=p)
-            StudentUser.objects.create(user=user,mobile=con,image=i,gender=gen,type="student")
-            error="no"
-        except:
+        company=request.POST['company']
+        company_detail=request.POST['detail']
+        user=User.objects.create_user(first_name=f,last_name=l,username=e,password=p)
+        Recruiter.objects.create(user=user,mobile=con,image=i,gender=gen,company=company,company_detail=company_detail,type="recruiter",status="pending")
+        error="no"
+        d={'error':error}
+        return render(request,"user_signup.html",d)
+     except:
+            error="yes"
+     try:
+        f=request.POST['fname']
+        l=request.POST['lname']
+        i=request.FILES['image']
+        p=request.POST['pwd']
+        e=request.POST['email']
+        con=request.POST['contact']
+        gen=request.POST['gender']
+        user=User.objects.create_user(first_name=f,last_name=l,username=e,password=p)
+        StudentUser.objects.create(user=user,mobile=con,image=i,gender=gen,type="student")
+        error="no"
+     except:
             error="yes"
     d={'error':error}
-    
     return render(request,"user_signup.html",d)
 
 def recruiter_signup(request):
@@ -138,13 +157,38 @@ def user_login(request):
         if user:
             try:
                 user1=StudentUser.objects.get(user=user)
-                if user1.type=="student":
+                login(request,user)
+                error="sno"
+                d={'error':error}
+                return render(request,"user_login.html",d)
+            except:
+                error="yes"
+            
+            try:
+                user1=Recruiter.objects.get(user=user)
+                if  user1.status=="Accept" :
                  login(request,user)
-                 error="no"
+                 error="rno"
+
+                elif  user1.status=="Reject":
+                    error="not"
                 else:
+                    error="pending"
+                d={'error':error}
+                return render(request,"user_login.html",d)
+            except:
+                error="yes"
+            
+            try:
+
+             if user.is_staff:
+                 login(request,user)
+                 error="ano"
+             else:
                     error="yes"
             except:
                 error="yes"
+
         else:
             error="yes"
     d={'error':error}
@@ -159,13 +203,13 @@ def recruiter_login(request):
         if user:
             try:
                 user1=Recruiter.objects.get(user=user)
-                if user1.type=="recruiter" and  user1.status!="pending" :
+                if user1.type=="recruiter" and  user1.status=="Accept" :
                  login(request,user)
                  error="no"
-                else:
-                    login(request,user)
+                elif user1.type=="recruiter" and  user1.status=="Reject":
                     error="not"
-            
+                else:
+                    error="pending"
             except:
                 error="yes"
         else:
@@ -356,6 +400,25 @@ def application_success(request,pid):
     d={'job':job}
     return render(request, "application_success.html",d)
 
+
+def change_status(request,pid):
+    if not request.user.is_authenticated:
+        return redirect('admin_login')
+    recruiter=Recruiter.objects.get(id=pid)
+    error=""
+    if request.method=="POST":
+        s=request.POST['status']
+        recruiter.status=s
+        try:
+            recruiter.save()
+            error="no"
+        except:
+            error="yes"
+    d={'recruiter':recruiter,'error':error}
+    return render(request,"change_status.html",d)
+
+
+#category start
 def marketing(request):
     user=request.user
     student=StudentUser.objects.get(user=user)
@@ -367,7 +430,7 @@ def marketing(request):
     d={'job':job,'li':li}
     return render(request, "marketing.html",d)
 
-#category start
+
 
 def Customer_Service(request):
     user=request.user
@@ -532,3 +595,10 @@ def view_users(request):
     data=StudentUser.objects.all()
     d={'data':data}
     return render(request,"view_users.html",d)
+
+def applied_candidatelist(request):
+    if not request.user.is_authenticated:
+        return redirect('recruiter_login')
+    data=Apply.objects.all()
+    d={'data':data}
+    return render(request,"applied_candidatelist.html",d)

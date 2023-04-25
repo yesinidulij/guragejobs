@@ -16,7 +16,7 @@
         <!-- Spinner End -->
 
         <!-- Navbar Start -->
-        {% include 'user_navigation.html' %}
+        {% include 'recruiter_navigation.html' %}
         <!-- Navbar End -->
 
         <!-- Header End -->
@@ -81,7 +81,7 @@
                                     </div>
                                     <div class="col-sm-12 col-md-4 d-flex flex-column align-items-start align-items-md-end justify-content-center">
                                         <div class="d-flex mb-3">
-                                            <a class="btn btn-primary" href="{% url 'job_detail' i.id %}" style="margin-right: 10px;">change status</a>
+                                            <a class="btn btn-primary" href="{% url 'change_status' i.id %}" style="margin-right: 10px;">change status</a>
                                             <a class="btn btn-danger" href="{% url 'delete_recruiter' i.user.id %}">delete</a>
                                         </div>
                                         
@@ -101,7 +101,7 @@
                             <div class="job-item p-4 mb-4">
                                 <div class="row g-4">
                                     <div class="col-sm-12 col-md-8 d-flex align-items-center">
-                                        <img class="flex-shrink-0 img-fluid border rounded" src="{% static 'img/com-logo-1.jpg' %}" alt="" style="width: 80px; height: 80px;">
+                                        <img class="flex-shrink-0 img-fluid border rounded" src="{{i.image.url}}" alt="" style="width: 80px; height: 80px;">
                                         <div class="text-start ps-4">
                                             <h5 class="mb-3">{{i.company}}</h5>
                                             <span class="text-truncate me-3"><i class="fa fa-map-marker-alt text-primary me-2"></i>{{i.user.username}}</span>
@@ -113,7 +113,7 @@
                                         
                                         
                                         <div class="d-flex mb-3">
-                                            <a class="btn btn-primary" href="{% url 'job_detail' i.id %}">change status</a>
+                                            <a class="btn btn-primary" href="{% url 'change_status' i.id %}">change status</a>
                                         </div>
                                        
                                        
@@ -130,7 +130,7 @@
                             <div class="job-item p-4 mb-4">
                                 <div class="row g-4">
                                     <div class="col-sm-12 col-md-8 d-flex align-items-center">
-                                        <img class="flex-shrink-0 img-fluid border rounded" src="{% static 'img/com-logo-5.jpg' %}" alt="" style="width: 80px; height: 80px;">
+                                        <img class="flex-shrink-0 img-fluid border rounded" src="{{i.image.url}}" alt="" style="width: 80px; height: 80px;">
                                         <div class="text-start ps-4">
                                             <h5 class="mb-3">{{i.company}}</h5>
                                             <span class="text-truncate me-3"><i class="fa fa-map-marker-alt text-primary me-2"></i>{{i.user.username}}</span>
@@ -141,7 +141,7 @@
                                     <div class="col-sm-12 col-md-4 d-flex flex-column align-items-start align-items-md-end justify-content-center">
                                         
                                         <div class="d-flex mb-3">
-                                            <a class="btn btn-primary" href="{% url 'job_detail' i.id %}">change status</a>
+                                            <a class="btn btn-primary" href="{% url 'change_status' i.id %}">change status</a>
                                             
                                         </div>
                                        
@@ -159,7 +159,7 @@
                             <div class="job-item p-4 mb-4">
                                 <div class="row g-4">
                                     <div class="col-sm-12 col-md-8 d-flex align-items-center">
-                                        <img class="flex-shrink-0 img-fluid border rounded" src="{% static 'img/com-logo-5.jpg' %}" alt="" style="width: 80px; height: 80px;">
+                                        <img class="flex-shrink-0 img-fluid border rounded" src="{{i.image.url}}" alt="" style="width: 80px; height: 80px;">
                                         <div class="text-start ps-4">
                                             <h5 class="mb-3">{{i.company}}</h5>
                                             <span class="text-truncate me-3"><i class="fa fa-map-marker-alt text-primary me-2"></i>{{i.user.username}}</span>
@@ -170,7 +170,7 @@
                                     <div class="col-sm-12 col-md-4 d-flex flex-column align-items-start align-items-md-end justify-content-center">
                                         
                                         <div class="d-flex mb-3">
-                                            <a class="btn btn-primary" href="{% url 'job_detail' i.id %}">change status</a>
+                                            <a class="btn btn-primary" href="{% url 'change_status' i.id %}">change status</a>
                                             
                                         </div>
                                        
