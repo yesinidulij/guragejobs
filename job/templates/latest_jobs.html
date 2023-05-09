@@ -40,14 +40,14 @@
                 <h1 class="text-center mb-5 wow fadeInUp" data-wow-delay="0.1s">Explore By Category</h1>
                 <div class="row g-4">
                     <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.1s">
-                        <a class="cat-item rounded p-4" href="{% url 'marketing' %}">
+                        <a class="cat-item rounded p-4" href="{% url 'user_login' %}">
                             <i class="fa fa-3x fa-mail-bulk text-primary mb-4"></i>
                             <h6 class="mb-3">Marketing</h6>
                             <p class="mb-0">{{len1}}</p>
                         </a>
                     </div>
                     <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.3s">
-                        <a class="cat-item rounded p-4" href="{% url 'Customer_Service' %}">
+                        <a class="cat-item rounded p-4" href="{% url 'user_login' %}">
                             <i class="fa fa-3x fa-headset text-primary mb-4"></i>
                             <h6 class="mb-3">Customer Service</h6>
                             <p class="mb-0">{{len2}}</p>
@@ -145,9 +145,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-2">
-                        <button class="btn btn-dark border-0 w-100">Search</button>
-                    </div>
+                    
                 </div>
             </div>
         </div>

@@ -19,8 +19,10 @@ from job.views import *
 from django.conf import settings
 from django.conf.urls.static import static
 
+
 urlpatterns = [
     path('admin/', admin.site.urls),
+ 
     path('',index,name="index"),
     path('admin_login',admin_login,name="admin_login"),
     path('admin_home',admin_home,name="admin_home"),

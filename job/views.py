@@ -5,6 +5,14 @@ from django.contrib.auth import authenticate,login,logout
 from datetime import date
 from django.contrib import messages
 from django.views.generic import ListView,DetailView
+from django.conf import settings
+from django.core.mail import send_mail
+
+
+
+
+
+
 # Create your views here.
 def index(request):
     job=Job.objects.all().order_by('-start_date')
@@ -104,6 +112,11 @@ def user_signup(request):
         company_detail=request.POST['detail']
         user=User.objects.create_user(first_name=f,last_name=l,username=e,password=p)
         Recruiter.objects.create(user=user,mobile=con,image=i,gender=gen,company=company,company_detail=company_detail,type="recruiter",status="pending")
+        subject = 'welcome to GurageJobs'
+        message = f'Hi {user.username}, thank you for registering in GurageJobs.'
+        email_from = settings.EMAIL_HOST_USER
+        recipient_list = [user.username, ]
+        send_mail( subject, message, email_from, recipient_list)
         error="no"
         d={'error':error}
         return render(request,"user_signup.html",d)
@@ -119,6 +132,11 @@ def user_signup(request):
         gen=request.POST['gender']
         user=User.objects.create_user(first_name=f,last_name=l,username=e,password=p)
         StudentUser.objects.create(user=user,mobile=con,image=i,gender=gen,type="student")
+        subject = 'welcome to GurageJobs'
+        message = f'Hi {user.username}, thank you for registering in GurageJobs.'
+        email_from = settings.EMAIL_HOST_USER
+        recipient_list = [user.username, ]
+        send_mail( subject, message, email_from, recipient_list)
         error="no"
      except:
             error="yes"
@@ -305,6 +323,14 @@ def add_job(request):
         recruiter=Recruiter.objects.get(user=user)
         try:
             Job.objects.create(recruiter=recruiter,start_date=sd,end_date=ed,title=jt,salary=s,image=l,description=description,experience=e,location=location,skills=skills,creationdate=date.today(),nature=nature,vacancy=vacancy,category=category)
+            subject = 'Exciting new role available within the'+recruiter.company
+            message = f'An exciting opportunity is now open within the {recruiter.company} for a {jt}.We are asking you to apply directly to the HR department before the role is advertised on external job boards.The role of {jt} will require the following skills {skills} and would be suitable for team members holding the following {description}.We are hoping to start interviews on {ed} and would encourage interested applicants to have expressed their interest by {StudentUser}. To do so, please complete an internal application form and send it to the HR department.We encourage all suitably qualified and interested team members to apply for this exciting position. For further information or details please contact us on {recruiter.user.username}.'
+            email_from = settings.EMAIL_HOST_USER
+            data=StudentUser.objects.all()
+            recipient_list = []
+            for i in data:
+                recipient_list.append(i.user.username)
+            send_mail( subject, message, email_from, recipient_list)
             error="no"
         except:
             error="yes"
@@ -420,6 +446,8 @@ def change_status(request,pid):
 
 #category start
 def marketing(request):
+    if not request.user.is_authenticated:
+        return redirect('user_login')
     user=request.user
     student=StudentUser.objects.get(user=user)
     data=Apply.objects.filter(student=student)
@@ -433,6 +461,8 @@ def marketing(request):
 
 
 def Customer_Service(request):
+    if not request.user.is_authenticated:
+        return redirect('user_login')
     user=request.user
     student=StudentUser.objects.get(user=user)
     data=Apply.objects.filter(student=student)
@@ -444,6 +474,8 @@ def Customer_Service(request):
     return render(request, "Customer_Service.html",d)
 
 def Human_Resource(request):
+    if not request.user.is_authenticated:
+        return redirect('user_login')
     user=request.user
     student=StudentUser.objects.get(user=user)
     data=Apply.objects.filter(student=student)
@@ -455,6 +487,8 @@ def Human_Resource(request):
     return render(request, "Human_Resource.html",d)
 
 def Project_Management(request):
+    if not request.user.is_authenticated:
+        return redirect('user_login')
     user=request.user
     student=StudentUser.objects.get(user=user)
     data=Apply.objects.filter(student=student)
@@ -466,6 +500,8 @@ def Project_Management(request):
     return render(request, "Project_Management.html",d)
 
 def Bussiness_Development(request):
+    if not request.user.is_authenticated:
+        return redirect('user_login')
     user=request.user
     student=StudentUser.objects.get(user=user)
     data=Apply.objects.filter(student=student)
@@ -478,6 +514,8 @@ def Bussiness_Development(request):
     return render(request, "Bussiness_Development.html",d)
 
 def Human_Resource(request):
+    if not request.user.is_authenticated:
+        return redirect('user_login')
     user=request.user
     student=StudentUser.objects.get(user=user)
     data=Apply.objects.filter(student=student)
@@ -490,6 +528,8 @@ def Human_Resource(request):
 
 
 def Teaching_and_Education(request):
+    if not request.user.is_authenticated:
+        return redirect('user_login')
     user=request.user
     student=StudentUser.objects.get(user=user)
     data=Apply.objects.filter(student=student)
@@ -501,6 +541,8 @@ def Teaching_and_Education(request):
     return render(request, "Teaching_and_Education.html",d)
 
 def Design_and_Creative(request):
+    if not request.user.is_authenticated:
+        return redirect('user_login')
     user=request.user
     student=StudentUser.objects.get(user=user)
     data=Apply.objects.filter(student=student)
@@ -512,6 +554,8 @@ def Design_and_Creative(request):
     return render(request, "Design_and_Creative.html",d)
 
 def Sales_and_Communication(request):
+    if not request.user.is_authenticated:
+        return redirect('user_login')
     user=request.user
     student=StudentUser.objects.get(user=user)
     data=Apply.objects.filter(student=student)
