@@ -21,8 +21,10 @@ from django.conf.urls.static import static
 
 
 urlpatterns = [
+
+   path('forget_password/',forget_password, name='forget_password'),
+
     path('admin/', admin.site.urls),
- 
     path('',index,name="index"),
     path('admin_login',admin_login,name="admin_login"),
     path('admin_home',admin_home,name="admin_home"),
@@ -34,6 +36,9 @@ urlpatterns = [
     path('recruiter_login',recruiter_login,name="recruiter_login"),
     path('user_home',user_home,name="user_home"),
     path('about',about,name="about"),
+    path('change_passwordadmin',change_passwordadmin,name="change_passwordadmin"),
+    path('change_passworduser',change_passworduser,name="change_passworduser"),
+    path('change_passwordrecruiter',change_passwordrecruiter,name="change_passwordrecruiter"),
     path('recruiter_home',recruiter_home,name="recruiter_home"),
     path('job_list',job_list,name="job_list"),
     path('add_job',add_job,name="add_job"),

@@ -9,6 +9,8 @@ from django.conf import settings
 from django.core.mail import send_mail
 
 
+from django.utils.crypto import get_random_string
+
 
 
 
@@ -18,6 +20,85 @@ def index(request):
     job=Job.objects.all().order_by('-start_date')
     d={'job':job[:2]}
     return render(request, "index.html",d)
+
+def forget_password(request):
+    if request.method == 'POST':
+        username = request.POST.get('email')
+        try:
+            user = User.objects.get(username=username)
+             # Generate a new password
+            new_password = get_random_string(length=12)
+            user.set_password(new_password)
+            user.save()
+            # Send email notification
+            send_mail('Password Reset Request',f'Your new password is: {new_password}',settings.EMAIL_HOST_USER,[username,],fail_silently=False,)
+            return redirect('user_login')
+        except:
+            messages.error(request, 'No user found with that email address.')
+            return redirect('forget_password')
+    return render(request, 'forget_password.html')
+
+
+
+def change_passwordadmin(request):
+    if not request.user.is_authenticated:
+        return redirect('user_login')
+    error=""
+    if request.method=="POST":
+        c=request.POST['currentpassword']
+        n=request.POST['newpassword']
+        try:
+            u=User.objects.get(id=request.user.id)
+            if u.check_password(c):
+             u.set_password(n)
+             u.save()   
+             error="no"
+            else:
+                error="not"
+        except:
+            error="yes"
+    d={'error':error}
+    return render(request,"change_passwordadmin.html",d)
+
+def change_passworduser(request):
+    if not request.user.is_authenticated:
+        return redirect('user_login')
+    error=""
+    if request.method=="POST":
+        c=request.POST['currentpassword']
+        n=request.POST['newpassword']
+        try:
+            u=User.objects.get(id=request.user.id)
+            if u.check_password(c):
+             u.set_password(n)
+             u.save()   
+             error="no"
+            else:
+                error="not"
+        except:
+            error="yes"
+    d={'error':error}
+    return render(request,"change_passworduser.html",d)
+
+def change_passwordrecruiter(request):
+    if not request.user.is_authenticated:
+        return redirect('user_login')
+    error=""
+    if request.method=="POST":
+        c=request.POST['currentpassword']
+        n=request.POST['newpassword']
+        try:
+            u=User.objects.get(id=request.user.id)
+            if u.check_password(c):
+             u.set_password(n)
+             u.save()   
+             error="no"
+            else:
+                error="not"
+        except:
+            error="yes"
+    d={'error':error}
+    return render(request,"change_passwordrecruiter.html",d)
 
 def admin_login(request):
     error=""
@@ -408,6 +489,8 @@ def job_detail(request,pid):
         error="close"
     elif job.start_date>date1:
         error="notopen"
+    elif job.vacancy==0:
+        error="novacancy"
     else:
       if request.method=="POST":
         cl=request.FILES["resume"]
@@ -415,7 +498,7 @@ def job_detail(request,pid):
         cover=request.POST['coverletter']
         
         Apply.objects.create(job=job,student=student,resume=cl,applydate=date1,portifolio_website=p,coverletter=cover)
-        job.vacancy-=1
+        job.vacancy=max(0,job.vacancy-1)
         job.save()
         error="done"
     d={'error':error,'student':student,'job':job}
