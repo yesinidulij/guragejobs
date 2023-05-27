@@ -60,75 +60,27 @@
     </div>
 </div>
 <!-- Header End -->
-    <div class="row" style="margin-left: 50px;">
-        <div class="col-sm-8">
+<div class="container-xxl py-5">
+    <div class="container">
+        <h1 class="text-center mb-5 wow fadeInUp" data-wow-delay="0.1s">accomplish your profile</h1>
+        <div class="row g-4">
+            <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.1s">
+                <a class="cat-item rounded p-4" href="{% url 'build_cv' %}">
+                    <i class="fa fa-3x fa-book-reader text-primary mb-4"></i>                    <h6 class="mb-3">Build Cv</h6>
+                    <p class="mb-0">your profile</p>
+                </a>
+            </div>
 
-<form action="" method="post" class=" mt-5" enctype="multipart/form-data" >
-{% csrf_token %}
-<div class="form-row">
-    <div class="form-group col-md-12">
-        <label >First Name</label>
-        <input type="text" class="form-control" name="fname" value="{{student.user.first_name}}" required>
-    </div>
-    <div class="form-group col-md-12">
-        <label >Last Name</label>
-        <input type="text" class="form-control" name="lname" value="{{student.user.last_name}}" required>
-    </div>
-</div>
-<div class="form-row">
-    <div class="form-group col-md-12">
-        <label >contact</label>
-        <input type="text" class="form-control" name="contact" value="{{student.mobile}}" required>
-    </div>
-    </div>
-    <div class="form-row">
-        <div class="form-group col-md-12">
-            <label >Email ID</label>
-            <input type="text" class="form-control" name="email" value="{{student.user.username}}" readonly required>
+            <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.3s">
+                <a class="cat-item rounded p-4" href="{% url 'view_users' %}">
+                    <i class="fa fa-3x fa-user-tie text-primary mb-4"></i>
+                    <h6 class="mb-3">Job Seekers</h6>
+                    <p class="mb-0"> jobseekers</p>
+                </a>
+            </div>
+
         </div>
-        </div>
-        <div class="form-row">
-           <div class="form-group col-md-6">
-                <label >Gender</label>
-                {% if student.gender == "male" %}
-                <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" id="customRaddioInline1" name="gender" class="custom-control-input" value="male" checked required>
-                    <label for="customRaddioInline1" class="custom-control-label">Male</label>
-                    <input type="radio" id="customRaddioInline2" name="gender" class="custom-control-input" value="female" required>
-                    <label for="customRaddioInline2" class="custom-control-label">Female</label>
-                </div>
-                {% else %}
-                <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" id="customRaddioInline1" name="gender" class="custom-control-input" value="male" required>
-                    <label for="customRaddioInline1" class="custom-control-label">Male</label>
-                    <input type="radio" id="customRaddioInline2" name="gender" class="custom-control-input" value="female" checked required>
-                    <label for="customRaddioInline2" class="custom-control-label">Female</label>
-                </div>
-                {% endif %}
-                   
-                
-                
-            </div>
-            <div class="form-group col-md-6 mb-4">
-                <label>Image</label>
-                <input type="file" class="form-control" name="image" value="{{student.image}}">
-            </div>
-            </div>
-            
-            
-        
-        
-
-        
-        <input type="submit" class="btn btn-primary" style="width:200px" value="submit">
-</form>
-
-</div>   <!--coumn1 end-->
-
-<div class="col-sm-4 mt-5 text-center">
-<img src="{{student.image.url}}" width="300px" height="300px" style="border-radius: 50%;">
-</div>
-
+    </div>
 </div>
 
 <!-- Footer Start -->

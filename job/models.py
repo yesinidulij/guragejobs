@@ -56,5 +56,10 @@ class Apply(models.Model):
     def __str__(self):
         return self.id
 
-
-
+class Profile(models.Model):
+    degree=models.CharField(max_length=50)
+    university=models.CharField(max_length=50)
+    skills=models.CharField(max_length=300)
+    experience=models.CharField(max_length=50)
+    about_you=models.CharField(max_length=50)
+    languages=models.CharField(max_length=50)

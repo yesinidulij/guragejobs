@@ -23,7 +23,6 @@ from django.conf.urls.static import static
 urlpatterns = [
 
    path('forget_password/',forget_password, name='forget_password'),
-
     path('admin/', admin.site.urls),
     path('',index,name="index"),
     path('admin_login',admin_login,name="admin_login"),
@@ -64,6 +63,9 @@ urlpatterns = [
     path('services',services,name="services"),
     path('change_status/<int:pid>',change_status,name="change_status"),
     path('applied_candidatelist',applied_candidatelist,name="applied_candidatelist"),
+    path('build_cv',build_cv,name="build_cv"),
+    path('resume/<int:pid>',resume,name="resume"),
+    
 ] + static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
 
 #handler404='job.views.error_404_view'

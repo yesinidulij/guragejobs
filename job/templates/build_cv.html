@@ -1,0 +1,75 @@
+{% load static %}
+
+{% block body %}
+
+{% include 'headtag.html' %}
+
+{% include 'user_navigation.html' %}
+
+<form action="" method="post" class="container mt-5" name="signup" >
+    {% csrf_token %}
+
+    
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label >degree</label>
+            <input type="text" class="form-control" name="degree" placeholder="Enter your degree" required>
+        </div>
+        </div>
+
+
+
+
+    
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label >university or college</label>
+            <input type="text" class="form-control" name="university"  required>
+        </div>
+    </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label >skills</label>
+                <textarea type="text" class="form-control" name="skills"  required></textarea>
+            </div>
+            </div>
+        
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label >Work Experience</label>
+                <input type="text" class="form-control" name="experience"  required>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label >about you</label>
+                    <textarea type="text" class="form-control" name="about_you"  required></textarea>
+                </div>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label >languages</label>
+                    <input type="text" class="form-control" name="languages" placeholder="your native languages" style="margin-bottom:30px" required>
+                </div>
+            </div>
+            <div class="row g-3 " style="margin-left:20px;">
+                <input class="btn btn-primary mb-4" type="submit" value="Build Cv" style="width:200px;">
+                </div>    
+            </form>
+    {% include 'footer.html'%}
+
+{% ifequal error "no" %}
+<script>
+    window.location=('{% url 'resume' profile_id %}');
+</script>
+{% endifequal %}
+
+
+{% ifequal error "yes" %}
+<script>
+    alert("something went wrong,try again");
+</script>
+{% endifequal %}
+
+{% endblock %}

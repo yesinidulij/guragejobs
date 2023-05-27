@@ -1,4 +1,10 @@
 /********** Template CSS **********/
+
+.cv-icon {
+    font-size: 3em;
+    color: #007bff; /* primary color */
+    margin-bottom: 1rem;
+  }
 :root {
     --primary: #00B074;
     --secondary: #2B9BFF;

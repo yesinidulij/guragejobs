@@ -1,4 +1,4 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect,HttpResponse
 from .models import *
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,login,logout
@@ -7,7 +7,8 @@ from django.contrib import messages
 from django.views.generic import ListView,DetailView
 from django.conf import settings
 from django.core.mail import send_mail
-
+from django.template import loader
+import pdfkit
 
 from django.utils.crypto import get_random_string
 
@@ -729,3 +730,33 @@ def applied_candidatelist(request):
     data=Apply.objects.all()
     d={'data':data}
     return render(request,"applied_candidatelist.html",d)
+
+def build_cv(request):
+    if not request.user.is_authenticated:
+        return redirect('user_login')
+    error=""
+    profile_id=None
+    user=request.user
+    if request.method=="POST":
+        degree=request.POST["degree"]
+        university=request.POST["university"]
+        about_you=request.POST["about_you"]
+        languages=request.POST["languages"]
+        e=request.POST["experience"]
+        skills=request.POST["skills"]
+        
+        
+        try:
+            profile=Profile.objects.create(degree=degree,university=university,skills=skills,experience=e,languages=languages,about_you=about_you)
+            profile_id=profile.id
+            error="no"
+        except:
+            error="yes"
+    d={"error":error,"profile_id":profile_id,"user":user}
+    return render(request,"build_cv.html",d)
+
+
+def resume(request,pid):
+    user_profile=Profile.objects.get(id=pid)
+    return render(request,"resume.html",{'user_profile':user_profile})
+    

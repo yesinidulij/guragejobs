@@ -129,3 +129,4 @@ EMAIL_PORT = 587
 EMAIL_HOST_USER = 'yesinidulij123@gmail.com'
 EMAIL_HOST_PASSWORD = 'qsitwdlnpxxxnjxt'
 
+WKHTMLTOPDF_PATH ="C:\Program Files\wkhtmltopdf\bin\wkhtmltopdf"
