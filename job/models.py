@@ -35,7 +35,6 @@ class Job(models.Model):
     salary=models.FloatField(max_length=20)
     vacancy=models.IntegerField()
     nature=models.CharField(max_length=50)
-    image= models.FileField()
     description=models.CharField(max_length=300)
     experience=models.CharField(max_length=50)
     location=models.CharField(max_length=100)
@@ -63,3 +62,5 @@ class Profile(models.Model):
     experience=models.CharField(max_length=50)
     about_you=models.CharField(max_length=50)
     languages=models.CharField(max_length=50)
+    def __str__(self):
+        return self.id

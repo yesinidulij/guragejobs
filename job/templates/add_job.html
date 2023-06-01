@@ -1,10 +1,57 @@
 {% load static %}
 
 {% block body %}
-
+<html>
 {% include 'headtag.html' %}
 
 {% include 'recruiter_navigation.html' %}
+
+<link href = "https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css"
+   rel = "stylesheet">
+<script src = "https://code.jquery.com/jquery-1.10.2.js"></script>
+<script src = "https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+
+<!-- Javascript -->
+<script>
+   $(function() {
+      $( "#jobtitle" ).tooltip({
+         content: "<strong>Letters and spaces only</strong>",
+         track:true
+      }),
+      $( "#startdate" ).tooltip({
+        content: "<strong>please fill out this field</strong>",
+        track:true
+     }),
+     $( "#enddate" ).tooltip({
+        content: "<strong>please fill out this field</strong>",
+        track:true
+     }),
+     $( "#salary" ).tooltip({
+        content: "<strong>please fill out this field</strong>",
+        track:true
+     }),
+     $( "#experience" ).tooltip({
+        content: "<strong>please fill out this field</strong>",
+        track:true
+     }),
+     $( "#location" ).tooltip({
+        content: "<strong>letters,spaces and numbers only</strong>",
+        track:true
+     }),
+     $( "#skills" ).tooltip({
+        content: "<strong>please fill out this field</strong>",
+        track:true
+     }),
+     $( "#description" ).tooltip({
+        content: "<strong>Alphanumeric with spaces above 30 characters</strong>",
+        track:true
+     }),
+     $( "#vacancy" ).tooltip({
+        content: "<strong>please fill out this field</strong>",
+        track:true
+     })
+   });
+</script>
 
 <form action="" method="post" class="container mt-5" enctype="multipart/form-data" name="signup" >
     {% csrf_token %}
@@ -13,7 +60,7 @@
     <div class="form-row">
         <div class="form-group col-md-6">
             <label >Job Title</label>
-            <input type="text" class="form-control" name="jobtitle" placeholder="Enter job title" required>
+            <input type="text" class="form-control" id="jobtitle" name="jobtitle"  placeholder="Enter job title" pattern="[A-Za-z\s]+" title="Letters and spaces only"   required>
         </div>
         </div>
 
@@ -22,46 +69,42 @@
 
     <div class="form-row">
         <div class="form-group col-md-6">
-            <label >start date</label>
-            <input type="date" class="form-control" name="startdate"  required>
+            
+            <input type="date" class="form-control" name="startdate" id="startdate" title="please fill out this field" required>
         </div>
         <div class="form-group col-md-6">
-            <label >end date</label>
-            <input type="date" class="form-control" name="enddate"  required>
+            
+            <input type="date" class="form-control" name="enddate" id="enddate" title="please fill out this field" required>
         </div>
     </div>
     <div class="form-row">
         <div class="form-group col-md-6">
             <label >salary(per Month)</label>
-            <input type="text" class="form-control" name="salary"  required>
-        </div>
-        <div class="form-group col-md-6">
-            <label >company logo</label>
-            <input type="file" class="form-control" name="logo"  required>
+            <input type="number" class="form-control" name="salary"  title="please fill out this field" id="salary"  required>
         </div>
         </div>
         <div class="form-row">
             <div class="form-group col-md-6">
                 <label >Experience(In Years)</label>
-                <input type="text" class="form-control" name="experience"  required>
+                <input type="number" class="form-control" id="experience" name="experience"   required>
             </div>
             <div class="form-group col-md-6">
                 <label >Location</label>
-                <input type="text" class="form-control" name="location"  required>
+                <input type="text" class="form-control" id="location" name="location"   pattern="^(?![0-9]+$)[A-Za-z0-9\s]+$" title="Alphanumeric with spaces only" required>
             </div>
             </div>
 
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label >skills</label>
-                    <input type="text" class="form-control" name="skills" placeholder="skills required" required>
+                    <input type="text" class="form-control" id="skills" name="skills" placeholder="skills required"  title="Only letters, spaces, and commas are allowed" required>
                 </div>
             </div>
 
             <div class="form-row">
                     <div class="form-group col-md-6">
                         <label >Description</label>
-                        <textarea type="text" class="form-control" name="description"  required></textarea>
+                        <textarea type="text" class="form-control" id="description" name="description"  pattern="^(?![0-9]+$)[A-Za-z0-9\s]{30,100}$" title="Alphanumeric with spaces above 30 characters" required></textarea>
                     </div>
                     </div>
                 
@@ -69,7 +112,7 @@
             <div class="form-row">
                     <div class="form-group col-md-6" style="margin-bottom:10px;">
                             <label >vacancy</label>
-                            <input type="number" class="form-control" name="vacancy" placeholder="number of vacancies available" required>
+                            <input type="number" class="form-control" id="vacancy" name="vacancy"  placeholder="number of vacancies available" title="please out this field" required>
                         </div>
             </div>
 
@@ -86,7 +129,6 @@
           <div class="form-row" style="margin-bottom:10px;">
             <div class="form-group col-md-6" style="margin-bottom:10px;">
         <select name="category" class="form-control" required>
-            <option >Category</option>
             <option value="Marketing">Marketing</option>
             <option value="Customer Service">Customer Service</option>
             <option value="Human Resource">Human Resource</option>
@@ -101,15 +143,22 @@
             
             
             
-            <input type="submit" class="btn btn-primary" style="width: 200px;" value="submit" style="margin-bottom:10px">
+            <input type="submit" class="btn btn-primary" style="width: 200px;" value="submit" style="margin-bottom:10px;margin-top:40px">
     </form>
     {% include 'footer.html'%}
-    {%ifequal error "no" %}
+
+
+   
+    
+</html>
+
+
+{%ifequal error "no" %}
     <script>
         alert("job details added succesfully");
         window.location=('{% url 'job_list' %}');
     </script>
-    {% endifequal %}
+    {%endifequal%}
     {% ifequal error "yes" %}
     <script>
         alert("Something went wrong,try again");

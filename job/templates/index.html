@@ -33,7 +33,7 @@
                                 <div class="col-10 col-lg-8">
                                     <h1 class="display-3 text-white animated slideInDown mb-4">Find The Perfect Job That You Deserved</h1>
                                     
-                                    <a href="" class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft">Search A Job</a>
+                                    <a href="{% url 'latest_jobs' %}" class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft">Search A Job</a>
                                     <a href="{% url 'user_signup' %}" class="btn btn-secondary py-md-3 px-md-5 animated slideInRight">Signup</a>
                                 </div>
                             </div>
@@ -68,130 +68,7 @@
        
 
 
-        <!-- Jobs Start -->
-        <div class="container-xxl py-5">
-            <div class="container">
-                <h1 class="text-center mb-5 wow fadeInUp" data-wow-delay="0.1s">Job Listing</h1>
-                <div class="tab-class text-center wow fadeInUp" data-wow-delay="0.3s">
-                    <ul class="nav nav-pills d-inline-flex justify-content-center border-bottom mb-5">
-                        <li class="nav-item">
-                            <a class="d-flex align-items-center text-start mx-3 ms-0 pb-3 active" data-bs-toggle="pill" href="#tab-1">
-                                <h6 class="mt-n1 mb-0">Featured</h6>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="d-flex align-items-center text-start mx-3 pb-3" data-bs-toggle="pill" href="#tab-2">
-                                <h6 class="mt-n1 mb-0">Full Time</h6>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="d-flex align-items-center text-start mx-3 me-0 pb-3" data-bs-toggle="pill" href="#tab-3">
-                                <h6 class="mt-n1 mb-0">Part Time</h6>
-                            </a>
-                        </li>
-                    </ul>
-              
-
-
-
-        <div class="tab-content">
-                        
-            <div id="tab-1" class="tab-pane fade show p-0 active">
-               
-                {% for i in job %}
-                {% if i.nature == "featured" %}
-                <div class="job-item p-4 mb-4">
-                    <div class="row g-4">
-                        <div class="col-sm-12 col-md-8 d-flex align-items-center">
-                            <img class="flex-shrink-0 img-fluid border rounded" src="{{i.recruiter.image.url}}" alt="" width="80px" height="80px" >
-                            <div class="text-start ps-4">
-                                <h5 class="mb-3">{{i.title}}</h5>
-                                <span class="text-truncate me-3"><i class="fa fa-map-marker-alt text-primary me-2"></i>{{i.location}}</span>
-                                <span class="text-truncate me-3"><i class="far fa-clock text-primary me-2"></i>Featured</span>
-                                <span class="text-truncate me-0"><i class="far fa-money-bill-alt text-primary me-2"></i>{{i.salary}}</span>
-                            </div>
-                        </div>
-                        <div class="col-sm-12 col-md-4 d-flex flex-column align-items-start align-items-md-end justify-content-center">
-                            
-                            <div class="d-flex mb-3">
-                                <a class="btn btn-light btn-square me-3" href=""><i class="far fa-heart text-primary"></i></a>
-                                <a class="btn btn-primary" href="{% url 'job_detail' i.id %}">Apply Now</a>
-                            </div>
-                            
-                            <small class="text-truncate"><i class="far fa-calendar-alt text-primary me-2"></i>Date Line: {{i.start_date}}-{{i.end_date}}</small>
-                        </div>
-                    </div>
-                </div>
-                {% endif %}
-                {% endfor %}
-                
-                <a class="btn btn-primary py-3 px-5" href="">Browse More Jobs</a>
-                
-                
-            </div>
-            
-            <div id="tab-2" class="tab-pane fade show p-0">
-                
-                {% for i in job %}
-                {% if i.nature == "fulltime" %}
-                <div class="job-item p-4 mb-4">
-                    <div class="row g-4">
-                        <div class="col-sm-12 col-md-8 d-flex align-items-center">
-                            <img class="flex-shrink-0 img-fluid border rounded" src="{% static 'img/com-logo-1.jpg' %}" alt="" style="width: 80px; height: 80px;">
-                            <div class="text-start ps-4">
-                                <h5 class="mb-3">{{i.title}}</h5>
-                                <span class="text-truncate me-3"><i class="fa fa-map-marker-alt text-primary me-2"></i>{{i.location}}</span>
-                                <span class="text-truncate me-3"><i class="far fa-clock text-primary me-2"></i>Full Time</span>
-                                <span class="text-truncate me-0"><i class="far fa-money-bill-alt text-primary me-2"></i>{{i.salary}}</span>
-                            </div>
-                        </div>
-                        <div class="col-sm-12 col-md-4 d-flex flex-column align-items-start align-items-md-end justify-content-center">
-                           
-                            <div class="d-flex mb-3">
-                                <a class="btn btn-light btn-square me-3" href=""><i class="far fa-heart text-primary"></i></a>
-                                <a class="btn btn-primary" href="{% url 'job_detail' i.id %}">Apply Now</a>
-                            </div>
-                            
-                            <small class="text-truncate"><i class="far fa-calendar-alt text-primary me-2"></i>Date Line: {{i.start_date}}-{{i.end_date}}</small>
-                        </div>
-                    </div>
-                </div>
-                {% endif %}
-                {% endfor %}
-                <a class="btn btn-primary py-3 px-5" href="">Browse More Jobs</a>
-            </div>
-            <div id="tab-3" class="tab-pane fade show p-0">
-                {% for  i in job %}
-                {% if i.nature == "parttime" %}
-                <div class="job-item p-4 mb-4">
-                    <div class="row g-4">
-                        <div class="col-sm-12 col-md-8 d-flex align-items-center">
-                            <img class="flex-shrink-0 img-fluid border rounded" src="{% static 'img/com-logo-5.jpg' %}" alt="" style="width: 80px; height: 80px;">
-                            <div class="text-start ps-4">
-                                <h5 class="mb-3">{{i.title}}</h5>
-                                <span class="text-truncate me-3"><i class="fa fa-map-marker-alt text-primary me-2"></i>{{i.location}}</span>
-                                <span class="text-truncate me-3"><i class="far fa-clock text-primary me-2"></i>Part Time</span>
-                                <span class="text-truncate me-0"><i class="far fa-money-bill-alt text-primary me-2"></i>{{i.salary}}</span>
-                            </div>
-                        </div>
-                        <div class="col-sm-12 col-md-4 d-flex flex-column align-items-start align-items-md-end justify-content-center">
-                            
-                            <div class="d-flex mb-3">
-                                <a class="btn btn-light btn-square me-3" href=""><i class="far fa-heart text-primary"></i></a>
-                                <a class="btn btn-primary" href="{% url 'job_detail' i.id %}">Apply Now</a>
-                            </div>
-                        
-                            <small class="text-truncate"><i class="far fa-calendar-alt text-primary me-2"></i>Date Line: {{i.start_date}} - {{i.end_date}}</small>
-                        </div>
-                    </div>
-                </div>
-                {%  endif %}
-                {% endfor %}
-                <a class="btn btn-primary py-3 px-5" href="">Browse More Jobs</a>
-            </div>
-            
-        </div>
-        <!-- Jobs End -->
+        
 
 
         <!-- Testimonial Start -->
@@ -201,7 +78,7 @@
                 <div class="owl-carousel testimonial-carousel">
                     <div class="testimonial-item bg-light rounded p-4">
                         <i class="fa fa-quote-left fa-2x text-primary mb-3"></i>
-                        <p>Dolor et eos labore, stet justo sed est sed. Diam sed sed dolor stet amet eirmod eos labore diam</p>
+                        <p>I found my dream job through this job portal! The platform was easy to navigate, and the matching algorithm provided me with relevant job opportunities. Highly recommended!</p>
                         <div class="d-flex align-items-center">
                             <img class="img-fluid flex-shrink-0 rounded" src="{% static 'img/client1.jpg' %}" style="width: 50px; height: 50px;">
                             <div class="ps-3">
@@ -212,7 +89,7 @@
                     </div>
                     <div class="testimonial-item bg-light rounded p-4">
                         <i class="fa fa-quote-left fa-2x text-primary mb-3"></i>
-                        <p>Dolor et eos labore, stet justo sed est sed. Diam sed sed dolor stet amet eirmod eos labore diam</p>
+                        <p>This job portal exceeded my expectations! It provided a user-friendly interface and a vast pool of job opportunities. Thanks to this platform, I landed my dream job. Highly recommended for job seekers!</p>
                         <div class="d-flex align-items-center">
                             <img class="img-fluid flex-shrink-0 rounded" src="{% static 'img/client2.jpg' %}" style="width: 50px; height: 50px;">
                             <div class="ps-3">
@@ -223,7 +100,7 @@
                     </div>
                     <div class="testimonial-item bg-light rounded p-4">
                         <i class="fa fa-quote-left fa-2x text-primary mb-3"></i>
-                        <p>Dolor et eos labore, stet justo sed est sed. Diam sed sed dolor stet amet eirmod eos labore diam</p>
+                        <p>I highly recommend this job portal to anyone looking for new opportunities. The platform is easy to use, and it helped me find the perfect job in my field. Thank you!</p>
                         <div class="d-flex align-items-center">
                             <img class="img-fluid flex-shrink-0 rounded" src="{% static 'img/client3.jpg' %}" style="width: 50px; height: 50px;">
                             <div class="ps-3">
@@ -234,7 +111,7 @@
                     </div>
                     <div class="testimonial-item bg-light rounded p-4">
                         <i class="fa fa-quote-left fa-2x text-primary mb-3"></i>
-                        <p>Dolor et eos labore, stet justo sed est sed. Diam sed sed dolor stet amet eirmod eos labore diam</p>
+                        <p>As a hiring manager, I've found the job portal to be an excellent resource for finding qualified candidates. The platform's features and the quality of applicants have greatly streamlined our recruitment process. Highly recommended for employers!</p>
                         <div class="d-flex align-items-center">
                             <img class="img-fluid flex-shrink-0 rounded" src="{% static 'img/client4.jpg' %}" style="width: 50px; height: 50px;">
                             <div class="ps-3">

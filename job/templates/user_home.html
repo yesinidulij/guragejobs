@@ -6,7 +6,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Guragejobs</title>
+    <title>Guragejobs|Home</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
@@ -52,8 +52,8 @@
         <h1 class="display-3 text-white mb-3 animated slideInDown">Home </h1>
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb text-uppercase">
-                <li class="breadcrumb-item"><a href="{% url 'user_home' %}">Companies</a></li>
-                <li class="breadcrumb-item"><a href="{% url 'user_latestjobs' %}">Jobseekers</a></li>
+                <li class="breadcrumb-item"><a href="{% url 'user_home' %}">Home</a></li>
+                <li class="breadcrumb-item"><a href="{% url 'user_latestjobs' %}">Jobs</a></li>
                 <li class="breadcrumb-item text-white active" aria-current="page">Home</li>
             </ol>
         </nav>
@@ -62,7 +62,7 @@
 <!-- Header End -->
 <div class="container-xxl py-5">
     <div class="container">
-        <h1 class="text-center mb-5 wow fadeInUp" data-wow-delay="0.1s">accomplish your profile</h1>
+        <h1 class="text-center mb-5 wow fadeInUp" data-wow-delay="0.1s">Dashboard</h1>
         <div class="row g-4">
             <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.1s">
                 <a class="cat-item rounded p-4" href="{% url 'build_cv' %}">
@@ -72,19 +72,25 @@
             </div>
 
             <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.3s">
-                <a class="cat-item rounded p-4" href="{% url 'view_users' %}">
-                    <i class="fa fa-3x fa-user-tie text-primary mb-4"></i>
-                    <h6 class="mb-3">Job Seekers</h6>
-                    <p class="mb-0"> jobseekers</p>
+                <a class="cat-item rounded p-4" href="{% url 'upcoming_jobs' %}">
+                    <i class="fa fa-3x fa-tasks text-primary mb-4"></i>
+                    <h6 class="mb-3">Upcoming Jobs</h6>
+                    <p class="mb-0"> Jobs</p>
                 </a>
             </div>
-
+            
+            <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.1s">
+                <a class="cat-item rounded p-4" href="{% url 'edit_profile' %}">
+                    <i class="fa fa-3x fa-book-reader text-primary mb-4"></i><h6 class="mb-3">Edit Profile</h6>
+                    <p class="mb-0">edit profile</p>
+                </a>
+            </div>
         </div>
     </div>
 </div>
 
 <!-- Footer Start -->
-{% include 'footer.html' %}
+{% include 'user_footer.html' %}
 <!-- Footer End -->
 
 

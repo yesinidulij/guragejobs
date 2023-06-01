@@ -18,11 +18,11 @@ from django.urls import path,include
 from job.views import *
 from django.conf import settings
 from django.conf.urls.static import static
-
+from django.contrib.auth import views as auth_views
 
 urlpatterns = [
 
-   path('forget_password/',forget_password, name='forget_password'),
+    path('forget_password/',forget_password, name='forget_password'),
     path('admin/', admin.site.urls),
     path('',index,name="index"),
     path('admin_login',admin_login,name="admin_login"),
@@ -65,7 +65,11 @@ urlpatterns = [
     path('applied_candidatelist',applied_candidatelist,name="applied_candidatelist"),
     path('build_cv',build_cv,name="build_cv"),
     path('resume/<int:pid>',resume,name="resume"),
-    
+    path('privacy_policy',privacy_policy,name="privacy_policy"),
+    path('edit_jobdetail/<int:pid>',edit_jobdetail,name="edit_jobdetail"),
+    path('upcoming_jobs',upcoming_jobs,name="upcoming_jobs"),
+    path('password_reset_done',password_reset_done,name="password_reset_done"),
+    path('edit_profile',edit_profile,name="edit_profile")
 ] + static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
 
 #handler404='job.views.error_404_view'

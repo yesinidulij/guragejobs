@@ -60,7 +60,7 @@
                                     </div>
                                     <div class="col-sm-12 col-md-4 d-flex flex-column align-items-start align-items-md-end justify-content-center">
                                         <div class="d-flex mb-3">
-                                            <a class="btn btn-primary" href="{% url 'job_detail' i.id %}" style="margin-right: 10px;">change status</a>
+
                                             <a class="btn btn-danger" href="{% url 'delete_user' i.user.id %}" onclick="return confirm('Are you sure,you want to delete')">delete</a>
                                         </div>
                                         
@@ -83,7 +83,7 @@
         <!-- Jobs End -->
 
         <!-- Footer Start -->
-        {% include 'footer.html' %}
+        {% include 'admin_footer.html' %}
         <!-- Footer End -->
 
         <!-- Back to Top -->

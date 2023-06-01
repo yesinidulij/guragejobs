@@ -2,36 +2,9 @@
 {% block body %}
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <title>GurageJobs|user Signup</title>
-        <meta content="width=device-width, initial-scale=1.0" name="viewport">
-        <meta content="" name="keywords">
-        <meta content="" name="description">
+    {% include 'headtag.html' %}
+    {% include 'navigationbar.html' %}
     
-        <!-- Favicon -->
-        <link href="{% static 'img/favicon.ico' %}" rel="icon">
-    
-        <!-- Google Web Fonts -->
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&family=Inter:wght@700;800&display=swap" rel="stylesheet">
-        
-        <!-- Icon Font Stylesheet -->
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
-    
-        <!-- Libraries Stylesheet -->
-        <link href="{% static 'lib/animate/animate.min.css' %}" rel="stylesheet">
-        <link href="{% static 'lib/owlcarousel/assets/owl.carousel.min.css' %}" rel="stylesheet">
-    
-        <!-- Customized Bootstrap Stylesheet -->
-        <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
-    
-        <!-- Template Stylesheet -->
-        <link href="{% static 'css/style.css' %}" rel="stylesheet">
-    </head>
-   
     <script>
         function checkpass(){
             if (document.signup.pwd.value!=document.signup.cpwd.value)
@@ -54,6 +27,77 @@
         }
 
     </script>
+
+
+    <link href = "https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css"
+    rel = "stylesheet">
+
+
+<!-- Javascript -->
+<script>
+   $(function() {
+      $( "#fname" ).tooltip({
+         content: "<strong>first name should be letters only</strong>",
+         track:true
+      }),
+      $( "#lname" ).tooltip({
+        content: "<strong>last name should be letters only</strong>",
+        track:true
+     }),
+     $( "#contact" ).tooltip({
+        content: "<strong>phone number should begin with 09 and followed by number and should be 10 digits</strong>",
+        track:true
+     }),
+     $( "#email" ).tooltip({
+        content: "<strong>this field accepts only beggining in letter and contain @ key followed by letter and dot</strong>",
+        track:true
+     }),
+     $( "#pwd" ).tooltip({
+        content: "<strong>Must contain at least one  number and one uppercase and lowercase letter, and at least 8 or more characters</strong>",
+        track:true
+     }),
+     $( "#cpwd" ).tooltip({
+        content: "<strong>please match it with password field</strong>",
+        track:true
+     }),
+     $( "#image" ).tooltip({
+        content: "<strong>please match it with password field</strong>",
+        track:true
+     }),
+     $( "#cfname" ).tooltip({
+        content: "<strong>first name should be letters only</strong>",
+        track:true
+     }),
+     $( "#clname" ).tooltip({
+       content: "<strong>last name should be letters only</strong>",
+       track:true
+    }),
+    $( "#ccontact" ).tooltip({
+       content: "<strong>phone number should begin with 09 and followed by number and should be 10 digits</strong>",
+       track:true
+    }),
+    $( "#cemail" ).tooltip({
+       content: "<strong>this field accepts only beggining in letter and contain @ key followed by letter and dot</strong>",
+       track:true
+    }),
+    $( "#ccpwd" ).tooltip({
+       content: "<strong>Must contain at least one  number and one uppercase and lowercase letter, and at least 8 or more characters</strong>",
+       track:true
+    }),
+    $( "#cccpwd" ).tooltip({
+       content: "<strong>please match it with password field</strong>",
+       track:true
+    }),
+    $( "#cimage" ).tooltip({
+       content: "<strong>please match it with password field</strong>",
+       track:true
+    }),
+    $( "#ccompany" ).tooltip({
+        content: "<strong>please match it with password field</strong>",
+        track:true
+     })
+   });
+</script>
  <body>
     
 
@@ -67,7 +111,7 @@
 </div>
 <!-- Spinner End -->
 
-{% include 'navigationbar.html' %}
+
         <!-- Header End -->
         <div class="container-xxl py-5 bg-dark page-header mb-5">
            <!-- Jobs Start -->
@@ -101,10 +145,10 @@
                                         {% csrf_token %}
                                         <div class="row g-3 mb-4">
                                             <div class="col-12 col-sm-6 ">
-                                                <input type="text" class="form-control" placeholder="First Name" name="fname" pattern="[A-Za-z]{2,}" title="first name should be in letter only" required>
+                                                <input type="text" class="form-control" placeholder="First Name" id="fname" name="fname" pattern="[A-Za-z]{2,}" title="first name should be in letter only" required>
                                             </div>
                                             <div class="col-12 col-sm-6 ">
-                                                <input type="text" class="form-control" placeholder="Last Name" name="lname" pattern="[A-Za-z]{2,}" title="first name should be in letter only" required>
+                                                <input type="text" class="form-control" placeholder="Last Name" id="lname" name="lname" pattern="[A-Za-z]{2,}" title="last name should be in letter only" required>
                                             </div>
                                             
                                                 
@@ -112,10 +156,10 @@
                                 
                                             <div class="row g-3 mb-4">
                                                 <div class="col-12 col-sm-6 ">
-                                                    <input type="number" class="form-control" placeholder="Contact" name="contact" pattern="[09]{2}[0-9]{8}" title="phone number should begin with 09 and followed by number and should be 10 digits" required>
+                                                    <input type="number" class="form-control" placeholder="Contact" id="contact" name="contact" pattern="[09]{2}[0-9]{8}" title="phone number should begin with 09 and followed by number and should be 10 digits" required>
                                                 </div>
                                                 <div class="col-12 col-sm-6 ">
-                                                    <input type="email" class="form-control" placeholder="Email" name="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="this field accepts only beggining in letter and contain @ key followed by letter and dot" required>
+                                                    <input type="email" class="form-control" placeholder="Email" id="email" name="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="this field accepts only beggining in letter and contain @ key followed by letter and dot" required>
                                                 </div>
                                                 
                                                 
@@ -139,15 +183,15 @@
                                 
                                                 <div class="row g-3">
                                                     <div class="col-12 col-sm-6 ">
-                                                        <input type="password" class="form-control" placeholder="password" name="pwd"  pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                                                        <input type="password" class="form-control" placeholder="password" id="pwd" name="pwd"  pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
                                                         title="Must contain at least one  number and one uppercase and lowercase letter, and at least 8 or more characters" required>
                                                     </div>
                                                     <div class="col-12 col-sm-6 ">
-                                                        <input type="password" class="form-control" placeholder="confirm password" name="cpwd" required>
+                                                        <input type="password" class="form-control" placeholder="confirm password" id="cpwd" name="cpwd" title="match it with password field" required>
                                                     </div>
                                                     <div class="col-12 col-sm-6 mb-4">
                                                         <label for="">profile</label>
-                                                        <input type="file" class="form-control bg-white" name="image" required>
+                                                        <input type="file" class="form-control bg-white" id="image" name="image" title="no file choosen" required>
                                                     </div>
                                                     
                                                     </div>
@@ -181,10 +225,10 @@
                                         {% csrf_token %}
                                         <div class="row g-3 mb-4">
                                             <div class="col-12 col-sm-6 ">
-                                                <input type="text" class="form-control" placeholder="First Name" name="fname" pattern="[A-Za-z]{2,}" title="first name should be in letter only" required>
+                                                <input type="text" class="form-control" placeholder="First Name" id="cfname" name="fname" pattern="[A-Za-z]{2,}" title="first name should be in letter only" required>
                                             </div>
                                             <div class="col-12 col-sm-6 ">
-                                                <input type="text" class="form-control" placeholder="Last Name" name="lname" pattern="[A-Za-z]{2,}" title="first name should be in letter only" required>
+                                                <input type="text" class="form-control" placeholder="Last Name" id="clname" name="lname" pattern="[A-Za-z]{2,}" title="first name should be in letter only" required>
                                             </div>
                                             
                                                 
@@ -192,18 +236,18 @@
                                 
                                             <div class="row g-3 mb-4">
                                                 <div class="col-12 col-sm-6 ">
-                                                    <input type="number" class="form-control" placeholder="Contact" name="contact" pattern="[09]{2}[0-9]{8}" title="phone number should begin with 09 and followed by number and should be 10 digits" required>
+                                                    <input type="number" class="form-control" placeholder="Contact" id="ccontact" name="contact" pattern="[09]{2}[0-9]{8}" title="phone number should begin with 09 and followed by number and should be 10 digits" required>
                                                 </div>
                                                 <div class="col-12 col-sm-6 ">
-                                                    <input type="email" class="form-control" placeholder="Email" name="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="this field accepts only beggining in letter and contain @ key followed by letter and dot" required>
+                                                    <input type="email" class="form-control" placeholder="Email" id="cemail" name="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="this field accepts only beggining in letter and contain @ key followed by letter and dot" required>
                                                 </div>
                                                 
                                                 <div class="col-12 col-sm-6 ">
-                                                    <input type="text" class="form-control" placeholder="company name" name="company" required>
+                                                    <input type="text" class="form-control" placeholder="company name" id="ccompany" name="company" pattern="[A-Za-z]{2,}" title="company name should be in letter only" required>
                                                 </div>
                                 
                                                 <div class="col-12 col-sm-6 ">
-                                                    <textarea class="form-control" placeholder="company description" name="detail" required></textarea>
+                                                    <textarea class="form-control" placeholder="company description" id="cdetail" name="detail" required></textarea>
                                                 </div>
                                                 
                                                 </div>
@@ -212,7 +256,7 @@
                                                     <div class="form-group col-md-12">
                                                          <label >Gender</label>
                                                          <div class="custom-control custom-radio custom-control-inline">
-                                                             <input type="radio" id="customRaddioInline1" name="gender" class="custom-control-input" value="male" required>
+                                                             <input type="radio" id="customRaddioInline1"  name="gender" class="custom-control-input" value="male" required>
                                                              <label for="customRaddioInline1" class="custom-control-label">Male</label>
                                                              <input type="radio" id="customRaddioInline2" name="gender" class="custom-control-input" value="female" required>
                                                              <label for="customRaddioInline2" class="custom-control-label">Female</label>
@@ -226,15 +270,15 @@
                                 
                                                 <div class="row g-3">
                                                     <div class="col-12 col-sm-6 ">
-                                                        <input type="password" class="form-control" placeholder="password" name="pwd"  pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                                                        <input type="password" class="form-control" placeholder="password" id="ccpwd" name="pwd"  pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
                                                         title="Must contain at least one  number and one uppercase and lowercase letter, and at least 8 or more characters" required>
                                                     </div>
                                                     <div class="col-12 col-sm-6 ">
-                                                        <input type="password" class="form-control" placeholder="confirm password" name="cpwd" required>
+                                                        <input type="password" class="form-control" placeholder="confirm password" id="cccpwd" name="cpwd" title="match it with password field" required>
                                                     </div>
                                                     <div class="col-12 col-sm-6 mb-4">
                                                         <label for="">profile</label>
-                                                        <input type="file" class="form-control bg-white" name="image" required>
+                                                        <input type="file" class="form-control bg-white" id="cimage" name="image" title="no file choosen" required>
                                                     </div>
                                                     
                                                     
@@ -281,6 +325,15 @@
 
 <!-- JavaScript Libraries -->
 {% include 'javascriptlibraries.html' %}
+
+
+<!--for tooltip-->
+
+<script src = "https://code.jquery.com/jquery-1.10.2.js"></script>
+<script src = "https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+
+
+
 </body>
  
 </html>

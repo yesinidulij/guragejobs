@@ -9,7 +9,6 @@ from django.conf import settings
 from django.core.mail import send_mail
 from django.template import loader
 import pdfkit
-
 from django.utils.crypto import get_random_string
 
 
@@ -33,13 +32,14 @@ def forget_password(request):
             user.save()
             # Send email notification
             send_mail('Password Reset Request',f'Your new password is: {new_password}',settings.EMAIL_HOST_USER,[username,],fail_silently=False,)
-            return redirect('user_login')
+            return redirect('password_reset_done')
         except:
             messages.error(request, 'No user found with that email address.')
             return redirect('forget_password')
     return render(request, 'forget_password.html')
 
-
+def password_reset_done(request):
+    return render(request,"password_reset_done.html")
 
 def change_passwordadmin(request):
     if not request.user.is_authenticated:
@@ -175,8 +175,12 @@ def latest_jobs(request):
          len8+=i.vacancy
     
     recruiter=Recruiter.objects.all()
-   
-    d={'job':job,'len1':len1,'len2':len2,'len3':len3,'len4':len4,'len5':len5,'len6':len6,'len7':len7,'len8':len8,'recruiter':recruiter}
+    valid=[]
+    date1=date.today()
+    for i in job:
+        if (i.start_date<=date1 and i.end_date>=date1 and i.vacancy>0):
+            valid.append(i)
+    d={'valid':valid,'len1':len1,'len2':len2,'len3':len3,'len4':len4,'len5':len5,'len6':len6,'len7':len7,'len8':len8,'recruiter':recruiter}
     return render(request,"latest_jobs.html",d)
 
 def user_signup(request):
@@ -393,7 +397,6 @@ def add_job(request):
         sd=request.POST["startdate"]
         ed=request.POST["enddate"]
         s=request.POST["salary"]
-        l=request.FILES["logo"]
         e=request.POST["experience"]
         location=request.POST["location"]
         skills=request.POST["skills"]
@@ -404,7 +407,7 @@ def add_job(request):
         user=request.user
         recruiter=Recruiter.objects.get(user=user)
         try:
-            Job.objects.create(recruiter=recruiter,start_date=sd,end_date=ed,title=jt,salary=s,image=l,description=description,experience=e,location=location,skills=skills,creationdate=date.today(),nature=nature,vacancy=vacancy,category=category)
+            Job.objects.create(recruiter=recruiter,start_date=sd,end_date=ed,title=jt,salary=s,description=description,experience=e,location=location,skills=skills,creationdate=date.today(),nature=nature,vacancy=vacancy,category=category)
             subject = 'Exciting new role available within the'+recruiter.company
             message = f'An exciting opportunity is now open within the {recruiter.company} for a {jt}.We are asking you to apply directly to the HR department before the role is advertised on external job boards.The role of {jt} will require the following skills {skills} and would be suitable for team members holding the following {description}.We are hoping to start interviews on {ed} and would encourage interested applicants to have expressed their interest by {StudentUser}. To do so, please complete an internal application form and send it to the HR department.We encourage all suitably qualified and interested team members to apply for this exciting position. For further information or details please contact us on {recruiter.user.username}.'
             email_from = settings.EMAIL_HOST_USER
@@ -430,13 +433,12 @@ def job_list(request):
     d={'job':job}
     return render(request,"job_list.html",d)
 
-
 def user_latestjobs(request):
     if not request.user.is_authenticated:
         return redirect('user_login')
     job=Job.objects.all().order_by('-start_date')
     user=request.user
-
+    date1=date.today()
     category1=Job.objects.filter(category="Marketing")
     category2=Job.objects.filter(category="Customer Service")
     category3=Job.objects.filter(category="Human Resource")
@@ -472,10 +474,15 @@ def user_latestjobs(request):
     student=StudentUser.objects.get(user=user)
     data=Apply.objects.filter(student=student)
     recruiter=Recruiter.objects.all()
+    valid=[]
+    date1=date.today()
+    for i in job:
+        if (i.start_date<=date1 and i.end_date>=date1 and i.vacancy>0):
+            valid.append(i)
     li=[]
     for  i in data:
         li.append(i.job.id)
-    d={'job':job,'li':li,'len1':len1,'len2':len2,'len3':len3,'len4':len4,'len5':len5,'len6':len6,'len7':len7,'len8':len8,'recruiter':recruiter}
+    d={'valid':valid,'li':li,'len1':len1,'len2':len2,'len3':len3,'len4':len4,'len5':len5,'len6':len6,'len7':len7,'len8':len8,'recruiter':recruiter,'date1':date1}
     return render(request,"user_latestjobs.html",d)
 
 def job_detail(request,pid):
@@ -543,7 +550,6 @@ def marketing(request):
     return render(request, "marketing.html",d)
 
 
-
 def Customer_Service(request):
     if not request.user.is_authenticated:
         return redirect('user_login')
@@ -554,7 +560,12 @@ def Customer_Service(request):
     for  i in data:
         li.append(i.job.id)
     job=Job.objects.filter(category="Customer Service")
-    d={'job':job,'li':li}
+    valid=[]
+    date1=date.today()
+    for i in job:
+        if (i.start_date<=date1 and i.end_date>=date1):
+            valid.append(i)
+    d={'valid':valid,'li':li}
     return render(request, "Customer_Service.html",d)
 
 def Human_Resource(request):
@@ -567,7 +578,12 @@ def Human_Resource(request):
     for  i in data:
         li.append(i.job.id)
     job=Job.objects.filter(category="Human Resource")
-    d={'job':job,'li':li}
+    valid=[]
+    date1=date.today()
+    for i in job:
+        if (i.start_date<=date1 and i.end_date>=date1):
+            valid.append(i)
+    d={'valid':valid,'li':li}
     return render(request, "Human_Resource.html",d)
 
 def Project_Management(request):
@@ -580,7 +596,12 @@ def Project_Management(request):
     for  i in data:
         li.append(i.job.id)
     job=Job.objects.filter(category="Project Management")
-    d={'job':job,'li':li}
+    valid=[]
+    date1=date.today()
+    for i in job:
+        if (i.start_date<=date1 and i.end_date>=date1):
+            valid.append(i)
+    d={'valid':valid,'li':li}
     return render(request, "Project_Management.html",d)
 
 def Bussiness_Development(request):
@@ -593,22 +614,13 @@ def Bussiness_Development(request):
     for  i in data:
         li.append(i.job.id)
     job=Job.objects.filter(category="Bussiness Development")
-    d={'job':job,'li':li}
-
+    valid=[]
+    date1=date.today()
+    for i in job:
+        if (i.start_date<=date1 and i.end_date>=date1):
+            valid.append(i)
+    d={'valid':valid,'li':li}
     return render(request, "Bussiness_Development.html",d)
-
-def Human_Resource(request):
-    if not request.user.is_authenticated:
-        return redirect('user_login')
-    user=request.user
-    student=StudentUser.objects.get(user=user)
-    data=Apply.objects.filter(student=student)
-    li=[]
-    for  i in data:
-        li.append(i.job.id)
-    job=Job.objects.filter(category="Sales & Communication")
-    d={'job':job,'li':li}
-    return render(request, "Sales_and_Communication.html",d)
 
 
 def Teaching_and_Education(request):
@@ -621,7 +633,12 @@ def Teaching_and_Education(request):
     for  i in data:
         li.append(i.job.id)
     job=Job.objects.filter(category="Teaching & Education")
-    d={'job':job,'li':li}
+    valid=[]
+    date1=date.today()
+    for i in job:
+        if (i.start_date<=date1 and i.end_date>=date1):
+            valid.append(i)
+    d={'valid':valid,'li':li}
     return render(request, "Teaching_and_Education.html",d)
 
 def Design_and_Creative(request):
@@ -634,7 +651,12 @@ def Design_and_Creative(request):
     for  i in data:
         li.append(i.job.id)
     job=Job.objects.filter(category="Design & Creative")
-    d={'job':job,'li':li}
+    valid=[]
+    date1=date.today()
+    for i in job:
+        if (i.start_date<=date1 and i.end_date>=date1):
+            valid.append(i)
+    d={'valid':valid,'li':li}
     return render(request, "Design_and_Creative.html",d)
 
 def Sales_and_Communication(request):
@@ -647,7 +669,12 @@ def Sales_and_Communication(request):
     for  i in data:
         li.append(i.job.id)
     job=Job.objects.filter(category="Sales & Communication")
-    d={'job':job,'li':li}
+    valid=[]
+    date1=date.today()
+    for i in job:
+        if (i.start_date<=date1 and i.end_date>=date1):
+            valid.append(i)
+    d={'valid':valid,'li':li}
     return render(request, "Sales_and_Communication.html",d)
 # Category end
 
@@ -759,4 +786,109 @@ def build_cv(request):
 def resume(request,pid):
     user_profile=Profile.objects.get(id=pid)
     return render(request,"resume.html",{'user_profile':user_profile})
+
+def privacy_policy(request):
+   return render(request,'privacy_policy.html')
+
+
+
+def edit_jobdetail(request,pid):
+    if not request.user.is_authenticated:
+        return redirect('recruiter_login')
+    error=""
+    job=Job.objects.get(id=pid)
+
+    if request.method=="POST":
+        jt=request.POST["jobtitle"]
+        sd=request.POST["startdate"]
+        ed=request.POST["enddate"]
+        s=request.POST["salary"]
+        e=request.POST["experience"]
+        location=request.POST["location"]
+        skills=request.POST["skills"]
+        description=request.POST["description"]
+        vacancy=request.POST['vacancy']
+        nature=request.POST['nature']
+        category=request.POST['category']
+        job.title=jt
+        job.salary=s
+        job.experience=e
+        job.location=location
+        job.skills=skills
+        job.description=description
+        job.vacancy=vacancy
+        job.nature=nature
+        job.category=category
+        try:
+            job.save()
+            error="no"
+        except:
+            error="yes"
+        if sd:
+            try:
+                job.start_date=sd
+                job.save()
+            except:
+                pass
+        else:
+            pass
+
+        if ed:
+            try:
+                job.end_date=ed
+                job.save()
+            except:
+                pass
+        else:
+            pass
+    d={'error':error,'job':job}
     
+    return render(request,"edit_jobdetail.html",d)
+
+
+def upcoming_jobs(request):
+    if not request.user.is_authenticated:
+        return redirect('user_login')
+    job=Job.objects.all().order_by('-start_date')
+    date1=date.today()
+    recruiter=Recruiter.objects.all()
+    valid=[]
+    date1=date.today()
+    for i in job:
+        if (i.start_date>date1):
+            valid.append(i)
+    d={'valid':valid,'recruiter':recruiter}
+    return render(request,"upcoming_jobs.html",d)
+
+
+def edit_profile(request):
+    if not request.user.is_authenticated:
+        return redirect('user_login')
+    
+    user=request.user
+    student=StudentUser.objects.get(user=user)
+    error=""
+    if request.method=='POST':
+        f=request.POST['fname']
+        l=request.POST['lname']
+        con=request.POST['contact']
+        gen=request.POST['gender']
+        student.user.first_name=f
+        student.user.last_name=l
+        student.mobile=con
+        student.gender=gen
+        
+        try:
+            student.save()
+            student.user.save()
+            error="no"
+        except:
+            error="yes"
+        try:
+            image=request.FILES['image']
+            student.image=image
+            student.save()
+        except:
+            pass
+    d={'student':student,'error':error}
+    return render(request,"edit_profile.html",d)

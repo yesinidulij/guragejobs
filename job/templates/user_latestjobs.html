@@ -151,7 +151,7 @@
         <!-- Search End -->
                         <div id="myDIV" class="tab-pane fade show p-0 active">
                            
-                            {% for i in job %}
+                            {% for i in valid %}
                             
                             <div class="job-item p-4 mb-4" id="mydiv1">
                                 <div class="row g-4">
@@ -168,7 +168,7 @@
                                         {% if i.id in li %}
                                         <div class="d-flex mb-3">
                                             <a class="btn btn-light btn-square me-3" href=""><i class="far fa-heart text-primary"></i></a>
-                                            <label class="btn btn-light">Already Applied</label>
+                                            <label ><strong>Already Applied</strong></label>
                                         </div>
                                         {% else %}
                                         <div class="d-flex mb-3">
@@ -197,7 +197,7 @@
         <!-- Jobs End -->
 
         <!-- Footer Start -->
-        {% include 'footer.html' %}
+        {% include 'user_footer.html' %}
         <!-- Footer End -->
 
         <!-- Back to Top -->
