@@ -85,6 +85,13 @@
                     <p class="mb-0">edit profile</p>
                 </a>
             </div>
+
+            <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.1s">
+                <a class="cat-item rounded p-4" href="{% url 'email_setting' %}">
+                    <i class="fa fa-3x fa-envelope  text-primary mb-4"></i><h6 class="mb-3">notification setting</h6>
+                    <p class="mb-0">edit profile</p>
+                </a>
+            </div>
         </div>
     </div>
 </div>
@@ -103,7 +110,7 @@
 </html>
 {% ifequal error "no" %}
 <script>
-    alert("profile updated  successfully");
+
     window.location=('{% url 'user_home' %}');
 </script>
 {% endifequal %}

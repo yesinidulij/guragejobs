@@ -678,8 +678,8 @@ def Sales_and_Communication(request):
     return render(request, "Sales_and_Communication.html",d)
 # Category end
 
-#def error_404_view(request,exception):
-  # return render(request,"404.html")
+# def error_404_view(request,exception):
+#   return render(request,"404.html")
 
 def recruiter_all(request):
     if not request.user.is_authenticated:
@@ -892,3 +892,54 @@ def edit_profile(request):
             pass
     d={'student':student,'error':error}
     return render(request,"edit_profile.html",d)
+
+
+def edit_profilerecruiter(request):
+    if not request.user.is_authenticated:
+        return redirect('recruiter_login')
+    user=request.user
+    recruiter=Recruiter.objects.get(user=user)
+    error=""
+    if request.method=='POST':
+        f=request.POST['fname']
+        l=request.POST['lname']
+        con=request.POST['contact']
+        gen=request.POST['gender']
+        detail=request.POST['detail']
+        recruiter.user.first_name=f
+        recruiter.user.last_name=l
+        recruiter.mobile=con
+        recruiter.gender=gen
+        recruiter.company_detail=detail
+        try:
+            recruiter.save()
+            recruiter.user.save()
+            error="no"
+        except:
+            error="yes"
+        try:
+            image=request.FILES['image']
+            recruiter.image=image
+            recruiter.save()
+        except:
+            pass
+
+    d={'recruiter':recruiter,'error':error}
+    return render(request,"edit_profilerecruiter.html",d)
+
+
+def email_setting(request):
+    if not request.user.is_authenticated:
+        return redirect('user_login')
+    error=""
+    if request.method=="POST":
+       user=request.user
+       try:
+        category=request.POST["category"]
+        Email.objects.create(email=user.username,category=category)
+        error="no"
+       except:
+        error="yes"
+    d={'error':error}
+    return render(request,"email_setting.html",d)
+    

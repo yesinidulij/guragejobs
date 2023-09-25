@@ -26,6 +26,24 @@
             return true;
         }
 
+        function validatePhoneNumber() {
+            var phoneNumber = document.getElementById("contact").value;
+            if (!phoneNumber.startsWith("09") || phoneNumber.length !== 10) {
+              alert("Please enter a valid phone number starting with 09 and consisting of 10 digits.");
+              document.signup.contact.focus();
+              return false;
+            } 
+          }
+
+          function validatePhoneNumber1() {
+            var phoneNumber = document.getElementById("ccontact").value;
+            if (!phoneNumber.startsWith("09") || phoneNumber.length !== 10) {
+              alert("Please enter a valid phone number starting with 09 and consisting of 10 digits.");
+              document.csignup.contact.focus();
+              return false;
+            } 
+          }
+
     </script>
 
 
@@ -141,7 +159,7 @@
                         <div class="row g-4">
                             <div class="col-sm-12  d-flex align-items-center">
                                 <div class="text-start ps-4">
-                                    <form action="" method="post"  enctype="multipart/form-data" name="signup" onsubmit="return checkpass();">
+                                    <form action="" method="post"  enctype="multipart/form-data" name="signup" onsubmit="return checkpass();return validatePhoneNumber();">
                                         {% csrf_token %}
                                         <div class="row g-3 mb-4">
                                             <div class="col-12 col-sm-6 ">
@@ -156,7 +174,7 @@
                                 
                                             <div class="row g-3 mb-4">
                                                 <div class="col-12 col-sm-6 ">
-                                                    <input type="number" class="form-control" placeholder="Contact" id="contact" name="contact" pattern="[09]{2}[0-9]{8}" title="phone number should begin with 09 and followed by number and should be 10 digits" required>
+                                                    <input type="text" class="form-control" placeholder="Contact" id="contact" name="contact" pattern="[09]{2}[0-9]{8}" title="phone number should begin with 09 and followed by number and should be 10 digits" required>
                                                 </div>
                                                 <div class="col-12 col-sm-6 ">
                                                     <input type="email" class="form-control" placeholder="Email" id="email" name="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="this field accepts only beggining in letter and contain @ key followed by letter and dot" required>
@@ -191,7 +209,7 @@
                                                     </div>
                                                     <div class="col-12 col-sm-6 mb-4">
                                                         <label for="">profile</label>
-                                                        <input type="file" class="form-control bg-white" id="image" name="image" title="no file choosen" required>
+                                                        <input type="file" class="form-control bg-white" id="image" name="image" title="no file choosen" >
                                                     </div>
                                                     
                                                     </div>
@@ -221,7 +239,7 @@
                         <div class="row g-4">
                             <div class="col-sm-12  d-flex align-items-center">
                                 <div class="text-start ps-4">
-                                    <form action="" method="post"  enctype="multipart/form-data" name="csignup" onsubmit="return checkpass1();">
+                                    <form action="" method="post"  enctype="multipart/form-data" name="csignup" onsubmit="return checkpass1();return validatePhoneNumber1();">
                                         {% csrf_token %}
                                         <div class="row g-3 mb-4">
                                             <div class="col-12 col-sm-6 ">
@@ -236,14 +254,14 @@
                                 
                                             <div class="row g-3 mb-4">
                                                 <div class="col-12 col-sm-6 ">
-                                                    <input type="number" class="form-control" placeholder="Contact" id="ccontact" name="contact" pattern="[09]{2}[0-9]{8}" title="phone number should begin with 09 and followed by number and should be 10 digits" required>
+                                                    <input type="text" class="form-control" placeholder="Contact" id="ccontact" name="contact" pattern="[09]{2}[0-9]{8}" title="phone number should begin with 09 and followed by number and should be 10 digits" required>
                                                 </div>
                                                 <div class="col-12 col-sm-6 ">
                                                     <input type="email" class="form-control" placeholder="Email" id="cemail" name="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="this field accepts only beggining in letter and contain @ key followed by letter and dot" required>
                                                 </div>
                                                 
                                                 <div class="col-12 col-sm-6 ">
-                                                    <input type="text" class="form-control" placeholder="company name" id="ccompany" name="company" pattern="[A-Za-z]{2,}" title="company name should be in letter only" required>
+                                                    <input type="text" class="form-control" placeholder="company name" id="ccompany" name="company" pattern="[A-Za-z\s]+" title="company name should be in letter only" required>
                                                 </div>
                                 
                                                 <div class="col-12 col-sm-6 ">

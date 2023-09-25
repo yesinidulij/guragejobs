@@ -19,9 +19,11 @@ from job.views import *
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.auth import views as auth_views
-
+from django.views.static import serve
+from django.conf.urls import url
 urlpatterns = [
-
+    url(r'^media/(?P<path>.*)$',serve,{'document_root':  settings.MEDIA_ROOT}),
+    url(r'static/(?P<path>.*)$',serve,{'document_root':settings.STATIC_ROOT}),
     path('forget_password/',forget_password, name='forget_password'),
     path('admin/', admin.site.urls),
     path('',index,name="index"),
@@ -69,7 +71,9 @@ urlpatterns = [
     path('edit_jobdetail/<int:pid>',edit_jobdetail,name="edit_jobdetail"),
     path('upcoming_jobs',upcoming_jobs,name="upcoming_jobs"),
     path('password_reset_done',password_reset_done,name="password_reset_done"),
-    path('edit_profile',edit_profile,name="edit_profile")
+    path('edit_profile',edit_profile,name="edit_profile"),
+    path('edit_profilerecruiter',edit_profilerecruiter,name="edit_profilerecruiter"),
+    path('email_setting',email_setting,name="email_setting")
 ] + static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
 
-#handler404='job.views.error_404_view'
+# handler404='job.views.error_404_view'

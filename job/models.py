@@ -64,3 +64,8 @@ class Profile(models.Model):
     languages=models.CharField(max_length=50)
     def __str__(self):
         return self.id
+
+
+class Email(models.Model):
+    email=models.CharField(max_length=50,null=True)
+    category=models.CharField(max_length=100,null=True)
