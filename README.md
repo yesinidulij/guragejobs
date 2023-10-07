@@ -1,8 +1,4 @@
-# guragejobs
-Certainly, creating a comprehensive README file on your GitHub repository is essential to attract potential clients and collaborators to your online job portal application. A well-structured README provides an overview of your project, its features, and how to get started with it. Here's a template you can use to create an effective README for your Django-based job portal application:
-
-```markdown
-# Gurage Zone Job Portal
+Gurage Zone Job Portal
 
 Welcome to the Gurage Zone Job Portal project! This web application is designed to facilitate job seekers and employers within the Gurage Zone, providing an efficient platform for job postings and job applications.
 
